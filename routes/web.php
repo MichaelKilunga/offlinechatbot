@@ -5,8 +5,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\PromptTemplateController;
 use App\Http\Controllers\Admin\SettingController;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
+    // Log
+    Log::info("Incoming request to home page!");
     return view('welcome');
 });
 
