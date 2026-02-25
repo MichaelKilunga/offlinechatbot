@@ -34,6 +34,7 @@ class ProcessIncomingSms implements ShouldQueue
     {
         // 1. Find or create user
         $user = User::firstOrCreate(['phone_number' => $this->from]);
+        Log::info("User " . $user->phone_number . " created or found");
 
         // 2. Store user message
         $inboundMessage = Message::create([
@@ -41,24 +42,36 @@ class ProcessIncomingSms implements ShouldQueue
             'direction' => 'inbound',
             'content' => $this->text,
         ]);
+        Log::info("User " . $user->phone_number . " message stored");
 
         // 3. Resolve Language
         $language = \App\Models\SystemSetting::where('key', 'primary_language')->value('value') ?? 'sw';
+        Log::info("Language resolved to: " . $language);
 
         // 4. Generate Contextual AI Response
         $aiResult = $aiService->generateContextualResponse($this->text, $language);
+        Log::info("AI response generated: " . $aiResult['text']);
 
         $aiResponseText = $aiResult['text'];
 
+        // ---------------------------------------------------------------------------
+        // Re-apply the shared short-code keyword before sending.
+        // Africa's Talking requires the keyword prefix on outbound messages that
+        // originate from a shared short code so the reply is routed correctly.
+        // ---------------------------------------------------------------------------
+        $outboundText = 'HURU ' . $aiResponseText;
+
         // 5. Send SMS
-        $smsService->send($this->from, $aiResponseText);
+        $smsService->send($this->from, $outboundText);
+        Log::info("User " . $user->phone_number . " message sent");
 
         // 6. Store system message
         $outboundMessage = Message::create([
             'user_id' => $user->id,
             'direction' => 'outbound',
-            'content' => $aiResponseText,
+            'content' => $outboundText,
         ]);
+        Log::info("User " . $user->phone_number . " message stored");
 
         // 7. Log AI interaction
         AiLog::create([
@@ -70,5 +83,6 @@ class ProcessIncomingSms implements ShouldQueue
             'completion_tokens' => $aiResult['tokens']['candidatesTokenCount'] ?? 0,
             'total_tokens' => $aiResult['tokens']['totalTokenCount'] ?? 0,
         ]);
+        Log::info("User " . $user->phone_number . " message logged");
     }
 }
