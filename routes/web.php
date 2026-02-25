@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     // Log
-    Log::info("Incoming request to home page!");
+    // Log::info("Incoming request to home page!");
     return view('welcome');
 });
 
