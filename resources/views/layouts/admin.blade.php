@@ -14,7 +14,7 @@
         <div class="flex flex-wrap justify-between items-center">
             <div class="flex justify-start items-center">
                 <a href="{{ route('admin.dashboard') }}" class="flex mr-4">
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap">EduChat Admin</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap">{{ env("APP_NAME") }} ADMIN</span>
                 </a>
             </div>
             <div class="flex items-center lg:order-2">
@@ -45,7 +45,7 @@
 
     <footer class="bg-white border-t border-gray-200 p-4 mt-auto">
         <div class="text-center text-gray-500 text-sm">
-            &copy; {{ date('Y') }} EduChat SMS Learning
+            &copy; {{ date('Y') }} {{ env("APP_NAME") }} SMS Learning
         </div>
     </footer>
 </body>

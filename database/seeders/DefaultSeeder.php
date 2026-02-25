@@ -14,7 +14,7 @@ class DefaultSeeder extends Seeder
     {
         // Settings
         \App\Models\SystemSetting::updateOrCreate(['key' => 'primary_language'], ['value' => 'sw']);
-        \App\Models\SystemSetting::updateOrCreate(['key' => 'bot_name'], ['value' => 'EduChat']);
+        \App\Models\SystemSetting::updateOrCreate(['key' => 'bot_name'], ['value' => 'HuruLearn']);
 
         // Templates
         \App\Models\PromptTemplate::updateOrCreate(['name' => 'Default Swahili'], [

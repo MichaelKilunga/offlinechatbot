@@ -28,7 +28,7 @@
                     <label class="mb-2 block text-sm font-medium text-gray-700">Bot Name (Internal/Branding)</label>
                     <input
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        name="bot_name" type="text" value="{{ $settings["bot_name"] ?? "EduChat" }}">
+                        name="bot_name" type="text" value="{{ $settings["bot_name"] ?? env("APP_NAME") }}">
                 </div>
 
                 <hr>
