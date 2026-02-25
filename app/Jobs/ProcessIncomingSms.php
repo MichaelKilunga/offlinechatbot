@@ -60,7 +60,8 @@ class ProcessIncomingSms implements ShouldQueue
         // Africa's Talking requires the keyword prefix on outbound messages that
         // originate from a shared short code so the reply is routed correctly.
         // ---------------------------------------------------------------------------
-        $outboundText = 'HURU ' . $aiResponseText;
+        // $outboundText = 'HURU ' . $aiResponseText;
+        $outboundText = $aiResponseText;
 
         // 5. Send SMS
         $smsService->send($this->from, $outboundText);
