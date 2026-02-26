@@ -13,6 +13,9 @@
                     <div class="form-group">
                         <label class="form-label">Primary SMS Language</label>
                         <select name="primary_language" class="form-select">
+                            <option value="auto" {{ ($settings['primary_language'] ?? 'sw') == 'auto' ? 'selected' : '' }}>
+                                🌍 Auto Detect (Dynamic)
+                            </option>
                             <option value="sw" {{ ($settings['primary_language'] ?? 'sw') == 'sw' ? 'selected' : '' }}>
                                 🇹🇿 Swahili (Kiswahili)
                             </option>
@@ -20,7 +23,7 @@
                                 🇬🇧 English
                             </option>
                         </select>
-                        <div class="form-hint">Determines which prompt template and curriculum subset to prioritize for AI responses.</div>
+                        <div class="form-hint">Auto Detect will dynamically determine the language from user's SMS. Selecting a specific language enforces it.</div>
                     </div>
 
                     <div class="form-group">
@@ -66,9 +69,9 @@
                             <span style="font-size:1.2rem;">⚙️</span> Max Response Tokens (API Cap)
                         </label>
                         <input type="number" name="ai_max_tokens" class="form-input"
-                               value="{{ $settings['ai_max_tokens'] ?? 500 }}"
-                               min="50" max="2000">
-                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate. E.g., 800 tokens.</div>
+                               value="{{ $settings['ai_max_tokens'] ?? 8000 }}"
+                               min="500" max="10000">
+                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate (Note: Gemini 2.5 Flash uses many hidden 'thinking' tokens, so 8000+ is recommended).</div>
                     </div>
 
                     <div class="form-group">

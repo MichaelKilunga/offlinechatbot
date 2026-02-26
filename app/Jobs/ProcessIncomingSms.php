@@ -11,6 +11,7 @@ use App\Models\Message;
 use App\Models\AiLog;
 use App\Services\AiService;
 use App\Services\SmsService;
+use App\Services\LanguageDetector;
 
 class ProcessIncomingSms implements ShouldQueue
 {
@@ -53,7 +54,14 @@ class ProcessIncomingSms implements ShouldQueue
 
         // 3. Resolve Language
         $language = \App\Models\SystemSetting::where('key', 'primary_language')->value('value') ?? 'sw';
-        Log::info("Language resolved to: " . $language);
+        
+        if ($language === 'auto') {
+            $detector = new LanguageDetector();
+            $language = $detector->detect($this->text) ?? 'sw'; // fallback to Swahili if undetermined
+            Log::info("Language auto-detected as: " . $language);
+        } else {
+            Log::info("Language resolved from settings as: " . $language);
+        }
 
         // Moderation Check
         if ($moderationService->isAbusive($this->text)) {

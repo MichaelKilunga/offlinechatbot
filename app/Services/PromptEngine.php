@@ -35,12 +35,7 @@ class PromptEngine
     public function build(string $question, ?string $language = null, ?string $manualContext = null): string
     {
         // 1. LANGUAGE DETECTION & RESOLUTION
-        // Priority: 
-        // a. Detect language from the question text first.
-        // b. Fallback to the provided selection (default/manual language).
-        // c. Final fallback to 'sw' (Swahili).
-        $detectedLanguage = $this->detectLanguage($question);
-        $resolvedLanguage = $detectedLanguage ?? ($language ?: 'sw');
+        $resolvedLanguage = $language ?: 'sw';
         
         // 2. RESOLVE CURRICULUM CONTEXT
         // Context is injected by matching query keywords against the 'curriculums' table.
@@ -71,29 +66,7 @@ class PromptEngine
         return $finalPrompt . "\n\n" . $constraints;
     }
 
-    private function detectLanguage(string $text): ?string
-    {
-        $swahiliKeywords = ['nini', 'vipi', 'gani', 'habari', 'naomba', 'msaada', 'kuelewa', 'maada', 'mwalimu', 'kufundisha', 'eleza', 'kiswahili', 'kwa', 'ya', 'na', 'ni', 'wa', 'za', 'kama', 'jinsi', 'mtihani', 'swali', 'mbona', 'lini', 'wapi', 'nani', 'aina', 'tofauti'];
-        $englishKeywords = ['what', 'how', 'why', 'explain', 'teach', 'help', 'matter', 'physics', 'biology', 'chemistry', 'science', 'is', 'are', 'the', 'of', 'and', 'to', 'in', 'for', 'who', 'when', 'where', 'describe', 'define', 'difference', 'types'];
-        
-        $text = Str::lower($text);
-        
-        $swMatches = 0;
-        $enMatches = 0;
-        
-        // Extract words, ignoring punctuation
-        $words = preg_split('/\W+/', $text, -1, PREG_SPLIT_NO_EMPTY);
-        
-        foreach ($words as $word) {
-            if (in_array($word, $swahiliKeywords)) $swMatches++;
-            if (in_array($word, $englishKeywords)) $enMatches++;
-        }
-        
-        if ($swMatches > $enMatches) return 'sw';
-        if ($enMatches > $swMatches) return 'en';
 
-        return null; // Return null to trigger fallback in build()
-    }
 
     /**
      * Formats the curriculum context or returns a fallback string.

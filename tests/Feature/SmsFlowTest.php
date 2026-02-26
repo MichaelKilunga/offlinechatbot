@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Queue;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\AiLog;
+use App\Services\ModerationService;
 
 class SmsFlowTest extends TestCase
 {
@@ -24,7 +25,7 @@ class SmsFlowTest extends TestCase
 
         $response = $this->postJson('/api/sms/inbound', [
             'from' => '+254700000000',
-            'text' => 'What is photosynthesis?',
+            'text' => 'HURU What is photosynthesis?',
         ]);
 
         $response->assertStatus(200);
@@ -40,9 +41,9 @@ class SmsFlowTest extends TestCase
     {
         // Mock AiService
         $this->mock(AiService::class, function (MockInterface $mock) {
-            $mock->shouldReceive('generateResponse')
+            $mock->shouldReceive('generateContextualResponse')
                  ->once()
-                 ->andReturn('Photosynthesis is how plants make food.');
+                 ->andReturn(['text' => 'Photosynthesis is how plants make food.', 'model' => 'gemini-2.5-flash', 'tokens' => null]);
         });
 
         // Mock SmsService
@@ -53,15 +54,23 @@ class SmsFlowTest extends TestCase
                  ->andReturn(['status' => 'success']);
         });
 
+        // Mock ModerationService
+        $this->mock(ModerationService::class, function (MockInterface $mock) {
+            $mock->shouldReceive('isAbusive')
+                 ->once()
+                 ->andReturn(false);
+        });
+
         // Create the job instance manually
         $job = new ProcessIncomingSms('+254700000000', 'What is photosynthesis?');
         
         // Resolve mocks
         $aiService = app(AiService::class);
         $smsService = app(SmsService::class);
+        $moderationService = app(ModerationService::class);
 
         // Run the handle method
-        $job->handle($aiService, $smsService);
+        $job->handle($aiService, $smsService, $moderationService);
 
         // Assert Database State
         $this->assertDatabaseHas('users', ['phone_number' => '+254700000000']);
@@ -77,7 +86,7 @@ class SmsFlowTest extends TestCase
         ]);
 
         $aiLog = AiLog::first();
-        $this->assertStringContainsString('Question: What is photosynthesis?', $aiLog->prompt);
+        $this->assertEquals('What is photosynthesis?', $aiLog->prompt);
         $this->assertEquals('Photosynthesis is how plants make food.', $aiLog->response);
     }
 }
