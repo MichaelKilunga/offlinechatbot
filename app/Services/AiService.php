@@ -22,9 +22,12 @@ class AiService
         return $this->callGemini($prompt);
     }
 
-    private function callGemini(string $prompt, float $temp = 0.7, int $maxTokens = 200): array
+    private function callGemini(string $prompt, ?float $temp = null, ?int $maxTokens = null): array
     {
         try {
+            $temp = $temp ?? (float) (\App\Models\SystemSetting::where('key', 'ai_temperature')->value('value') ?? 0.7);
+            $maxTokens = $maxTokens ?? (int) (\App\Models\SystemSetting::where('key', 'ai_max_tokens')->value('value') ?? 200);
+
             $apiKey = config('services.gemini.key');
 
             if (empty($apiKey)) {

@@ -33,6 +33,38 @@
 
                     <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
 
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
+                            <span style="font-size:1.2rem;">📝</span> Max Response Words (Prompt Instruction)
+                        </label>
+                        <input type="number" name="ai_max_words" class="form-input"
+                               value="{{ $settings['ai_max_words'] ?? 50 }}"
+                               min="10" max="500">
+                        <div class="form-hint">Instructs the AI to keep answers within this word count (e.g. 50 words). Influences prompt constraints.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
+                            <span style="font-size:1.2rem;">⚙️</span> Max Response Tokens (API Cap)
+                        </label>
+                        <input type="number" name="ai_max_tokens" class="form-input"
+                               value="{{ $settings['ai_max_tokens'] ?? 200 }}"
+                               min="50" max="2000">
+                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate. E.g., 200 tokens.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
+                            <span style="font-size:1.2rem;">🌡️</span> AI Temperature
+                        </label>
+                        <input type="number" step="0.1" name="ai_temperature" class="form-input"
+                               value="{{ $settings['ai_temperature'] ?? 0.7 }}"
+                               min="0.0" max="2.0">
+                        <div class="form-hint">Controls randomness: 0.0 is strict/focused, 1.0+ is more creative. Default is 0.7.</div>
+                    </div>
+
+                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
+
                     <div style="display:flex; justify-content:flex-end;">
                         <button type="submit" class="btn btn-primary">💾 Save Configuration</button>
                     </div>
@@ -53,7 +85,7 @@
                     </li>
                     <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
                         <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        Templates must be created for the selected language to work correctly.
+                        AI Configuration alters both API limits (Tokens/Temperature) and strict prompt rules (Max Words) instantly.
                     </li>
                     <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
                         <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>

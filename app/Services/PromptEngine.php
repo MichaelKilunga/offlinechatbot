@@ -149,10 +149,12 @@ class PromptEngine
      */
     private function getConstraints(string $language): string
     {
+        $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 50;
+
         if ($language === 'sw') {
-            return "MASHARTI MUHIMU:\n- Jibu kwa lugha ya Kiswahili pekee.\n- Jibu kwa ufupi na ukamilifu (Max maneno 50).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
+            return "MASHARTI MUHIMU:\n- Jibu kwa lugha ya Kiswahili pekee.\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
         }
 
-        return "STRICT CONSTRAINTS:\n- Respond in English only.\n- Respond briefly and completely (Max 50 words).\n- DO NOT include greetings or extra conversation.";
+        return "STRICT CONSTRAINTS:\n- Respond in English only.\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation.";
     }
 }
