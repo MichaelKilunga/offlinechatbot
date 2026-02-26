@@ -56,9 +56,9 @@
                             <span style="font-size:1.2rem;">📝</span> Max Response Words (Prompt Instruction)
                         </label>
                         <input type="number" name="ai_max_words" class="form-input"
-                               value="{{ $settings['ai_max_words'] ?? 50 }}"
-                               min="10" max="500">
-                        <div class="form-hint">Instructs the AI to keep answers within this word count (e.g. 50 words). Influences prompt constraints.</div>
+                               value="{{ $settings['ai_max_words'] ?? 320 }}"
+                               min="10" max="1000">
+                        <div class="form-hint">Instructs the AI to keep answers within this word count (e.g. 160 words). Influences prompt constraints.</div>
                     </div>
 
                     <div class="form-group">
@@ -66,9 +66,9 @@
                             <span style="font-size:1.2rem;">⚙️</span> Max Response Tokens (API Cap)
                         </label>
                         <input type="number" name="ai_max_tokens" class="form-input"
-                               value="{{ $settings['ai_max_tokens'] ?? 200 }}"
+                               value="{{ $settings['ai_max_tokens'] ?? 500 }}"
                                min="50" max="2000">
-                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate. E.g., 200 tokens.</div>
+                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate. E.g., 800 tokens.</div>
                     </div>
 
                     <div class="form-group">

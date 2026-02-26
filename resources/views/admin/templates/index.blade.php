@@ -69,12 +69,19 @@
                                 @endif
                             </div>
                         </div>
-                        <form action="{{ route('admin.templates.toggle', $tpl) }}" method="POST">
-                            @csrf @method('PATCH')
-                            <button type="submit" class="btn btn-sm {{ $tpl->is_active ? 'btn-danger' : 'btn-blue' }}">
-                                {{ $tpl->is_active ? '⏸ Deactivate' : '▶ Activate' }}
-                            </button>
-                        </form>
+                        <div style="display:flex; gap:.5rem;">
+                            <a href="{{ route('admin.templates.edit', $tpl) }}" class="btn btn-sm" style="background:var(--gray-700); color:white; border:1px solid rgba(255,255,255,0.1); text-decoration:none;">✏️ Edit</a>
+                            <form action="{{ route('admin.templates.destroy', $tpl) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this template?');">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-sm" style="background:var(--red); color:white; border:none;">🗑️ Delete</button>
+                            </form>
+                            <form action="{{ route('admin.templates.toggle', $tpl) }}" method="POST">
+                                @csrf @method('PATCH')
+                                <button type="submit" class="btn btn-sm {{ $tpl->is_active ? 'btn-danger' : 'btn-blue' }}">
+                                    {{ $tpl->is_active ? '⏸ Deactivate' : '▶ Activate' }}
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-body">
                         <pre style="background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:1rem; font-size:.78rem; color:var(--gray-400); white-space:pre-wrap; font-family:'Courier New',monospace; line-height:1.7; overflow-x:auto;">{{ $tpl->template }}</pre>

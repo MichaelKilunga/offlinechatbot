@@ -26,7 +26,7 @@ class AiService
     {
         try {
             $temp = $temp ?? (float) (\App\Models\SystemSetting::where('key', 'ai_temperature')->value('value') ?? 0.7);
-            $maxTokens = $maxTokens ?? (int) (\App\Models\SystemSetting::where('key', 'ai_max_tokens')->value('value') ?? 200);
+            $maxTokens = $maxTokens ?? (int) (\App\Models\SystemSetting::where('key', 'ai_max_tokens')->value('value') ?? 500);
 
             $apiKey = config('services.gemini.key');
 

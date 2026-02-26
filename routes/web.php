@@ -30,6 +30,9 @@ Route::middleware('auth.basic')->prefix('admin')->group(function () {
     // Prompt Templates
     Route::get('/templates', [PromptTemplateController::class, 'index'])->name('admin.templates.index');
     Route::post('/templates', [PromptTemplateController::class, 'store'])->name('admin.templates.store');
+    Route::get('/templates/{template}/edit', [PromptTemplateController::class, 'edit'])->name('admin.templates.edit');
+    Route::put('/templates/{template}', [PromptTemplateController::class, 'update'])->name('admin.templates.update');
+    Route::delete('/templates/{template}', [PromptTemplateController::class, 'destroy'])->name('admin.templates.destroy');
     Route::patch('/templates/{template}/toggle', [PromptTemplateController::class, 'toggle'])->name('admin.templates.toggle');
 
     // Settings

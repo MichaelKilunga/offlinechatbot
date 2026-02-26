@@ -31,6 +31,33 @@ class PromptTemplateController extends Controller
         return redirect()->back()->with('success', 'Template created.');
     }
 
+    public function edit(PromptTemplate $template)
+    {
+        return view('admin.templates.edit', compact('template'));
+    }
+
+    public function update(Request $request, PromptTemplate $template)
+    {
+        $data = $request->validate([
+            'name' => 'required|unique:prompt_templates,name,' . $template->id,
+            'template' => 'required',
+            'temperature' => 'required|numeric|min:0|max:2',
+            'max_tokens' => 'required|integer|min:10',
+            'tone' => 'required|string',
+            'language' => 'required|in:en,sw',
+        ]);
+
+        $template->update($data);
+
+        return redirect()->route('admin.templates.index')->with('success', 'Template updated.');
+    }
+
+    public function destroy(PromptTemplate $template)
+    {
+        $template->delete();
+        return redirect()->route('admin.templates.index')->with('success', 'Template deleted.');
+    }
+
     public function toggle(PromptTemplate $template)
     {
         $template->update(['is_active' => !$template->is_active]);

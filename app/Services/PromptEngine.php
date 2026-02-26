@@ -146,7 +146,7 @@ class PromptEngine
 
     private function getConstraints(string $language): string
     {
-        $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 50;
+        $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 320;
 
         if ($language === 'sw') {
             return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwanafunzi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
