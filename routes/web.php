@@ -5,13 +5,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\PromptTemplateController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
-    // Log
-    // Log::info("Incoming request to home page!");
     return view('welcome');
 });
+
+// Landing page contact / subscribe / partner forms
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 
 Route::middleware('auth.basic')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');

@@ -333,6 +333,20 @@
 </head>
 <body>
 
+{{-- Flash messages --}}
+@if(session('contact_success'))
+<div id="flash-msg" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,rgba(16,185,129,0.95),rgba(5,150,105,0.95));color:#fff;padding:.9rem 2rem;border-radius:12px;font-size:.9rem;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,0.4);display:flex;align-items:center;gap:.7rem;">
+  ✓ {{ session('contact_success') }}
+  <span onclick="document.getElementById('flash-msg').remove()" style="cursor:pointer;opacity:.7;margin-left:.5rem;">✕</span>
+</div>
+@endif
+@if(session('contact_error'))
+<div id="flash-msg" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(135deg,rgba(239,68,68,0.95),rgba(185,28,28,0.95));color:#fff;padding:.9rem 2rem;border-radius:12px;font-size:.9rem;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,0.4);display:flex;align-items:center;gap:.7rem;">
+  ✕ {{ session('contact_error') }}
+  <span onclick="document.getElementById('flash-msg').remove()" style="cursor:pointer;opacity:.7;margin-left:.5rem;">✕</span>
+</div>
+@endif
+
 <!-- NAV -->
 <nav id="navbar">
     <a href="#" class="nav-logo">
@@ -751,8 +765,15 @@
             </div>
 
             <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                <a href="mailto:hello@hurulearn.co.tz" class="btn-primary">📧 Contact Us to Partner</a>
-                <a href="#" class="btn-outline">📄 Download Impact Deck</a>
+                {{-- Partner enquiry form --}}
+                <button onclick="document.getElementById('partner-modal').style.display='flex'" class="btn-primary">🤝 Contact Us to Partner</button>
+                {{-- Impact deck request --}}
+                <form action="{{ route('contact.submit') }}" method="POST" style="display:inline;">
+                    @csrf
+                    <input type="hidden" name="type" value="impact_deck">
+                    <input type="hidden" name="email" value="visitor@hurulearn.co.tz">
+                    <button type="submit" class="btn-outline">📄 Request Impact Deck</button>
+                </form>
             </div>
         </div>
     </div>
@@ -765,11 +786,13 @@
             <p class="section-tag" style="display:block; text-align:center;">Stay Connected</p>
             <h2>Ready to Change<br>Education in Africa?</h2>
             <p>Whether you are a funder, educator, NGO, government body, or simply someone who believes in this mission — we want to hear from you. Join our mailing list or reach out directly.</p>
-            <div class="cta-form">
-                <input type="email" placeholder="Enter your email address" id="email-input">
-                <button class="btn-primary" onclick="handleSubscribe()">Join Us</button>
-            </div>
-            <p style="margin-top:1.2rem; font-size:.82rem; color:var(--gray-400);">Or send us an SMS on our platform: <strong style="color:var(--amber);">HURU hello</strong> to <strong style="color:var(--amber);">15054</strong></p>
+            <form action="{{ route('contact.submit') }}" method="POST" class="cta-form">
+                @csrf
+                <input type="hidden" name="type" value="subscribe">
+                <input type="email" name="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn-primary">Join Us →</button>
+            </form>
+            <p style="margin-top:1.2rem; font-size:.82rem; color:var(--gray-400);">Or send us an SMS: <strong style="color:var(--amber);">HURU hello</strong> to <strong style="color:var(--amber);">15054</strong></p>
         </div>
     </div>
 </section>
@@ -798,6 +821,49 @@
     </div>
 </footer>
 
+<!-- PARTNER ENQUIRY MODAL -->
+<div id="partner-modal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;">
+    <div style="background:#16143a;border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:2.5rem;max-width:500px;width:100%;position:relative;">
+        <button onclick="document.getElementById('partner-modal').style.display='none'" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#94a3b8;font-size:1.3rem;cursor:pointer;">✕</button>
+        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:.5rem;">Partner with HuruLearn</h3>
+        <p style="color:#94a3b8;font-size:.875rem;margin-bottom:1.5rem;line-height:1.7;">Fill in your details and our team will reach out within 2 business days.</p>
+        <form action="{{ route('contact.submit') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="partner">
+            <div style="margin-bottom:1rem;">
+                <label style="display:block;font-size:.82rem;font-weight:500;color:#94a3b8;margin-bottom:.4rem;">Your Name *</label>
+                <input type="text" name="name" required placeholder="Jane Mwanga"
+                    style="width:100%;padding:.65rem 1rem;border-radius:10px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:.875rem;outline:none;">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block;font-size:.82rem;font-weight:500;color:#94a3b8;margin-bottom:.4rem;">Email Address *</label>
+                <input type="email" name="email" required placeholder="jane@organisation.org"
+                    style="width:100%;padding:.65rem 1rem;border-radius:10px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:.875rem;outline:none;">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block;font-size:.82rem;font-weight:500;color:#94a3b8;margin-bottom:.4rem;">Organisation</label>
+                <input type="text" name="organisation" placeholder="NGO / Company / Government"
+                    style="width:100%;padding:.65rem 1rem;border-radius:10px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:.875rem;outline:none;">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block;font-size:.82rem;font-weight:500;color:#94a3b8;margin-bottom:.4rem;">Partnership Tier</label>
+                <select name="tier" style="width:100%;padding:.65rem 1rem;border-radius:10px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:.875rem;outline:none;">
+                    <option value="Gold ($10,000+)">⭐ Gold — $10,000+</option>
+                    <option value="Silver ($2,500+)">◆ Silver — $2,500+</option>
+                    <option value="Community / NGO">🌱 Community / NGO</option>
+                    <option value="Custom">Custom / Other</option>
+                </select>
+            </div>
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:block;font-size:.82rem;font-weight:500;color:#94a3b8;margin-bottom:.4rem;">Message</label>
+                <textarea name="message" rows="3" placeholder="Tell us about your interest and how you'd like to contribute..."
+                    style="width:100%;padding:.65rem 1rem;border-radius:10px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.12);color:#fff;font-size:.875rem;outline:none;font-family:inherit;resize:vertical;"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center;padding:.8rem;">🤝 Send Partnership Enquiry</button>
+        </form>
+    </div>
+</div>
+
 <script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
@@ -812,16 +878,13 @@
         nav.style.boxShadow = window.scrollY > 50 ? '0 4px 30px rgba(0,0,0,0.5)' : 'none';
     });
 
-    // Subscribe handler
-    function handleSubscribe() {
-        const email = document.getElementById('email-input').value.trim();
-        if (!email || !email.includes('@')) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-        alert('Thank you! We will be in touch soon at ' + email);
-        document.getElementById('email-input').value = '';
-    }
+    // Flash auto-dismiss after 6s
+    setTimeout(() => { const f = document.getElementById('flash-msg'); if (f) f.remove(); }, 6000);
+
+    // Close modal on backdrop click
+    document.getElementById('partner-modal').addEventListener('click', function(e) {
+        if (e.target === this) this.style.display = 'none';
+    });
 </script>
 </body>
 </html>

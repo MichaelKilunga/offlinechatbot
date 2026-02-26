@@ -1,56 +1,66 @@
 @extends("layouts.admin", ["title" => "System Settings"])
 
 @section("content")
-    <div class="mx-auto max-w-2xl">
-        <div class="rounded-lg bg-white p-8 shadow">
-            <h2 class="mb-6 text-2xl font-bold">Global Application Settings</h2>
+    <div style="max-width:680px;">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">⚙️ Global Application Settings</div>
+                <div class="card-subtitle">Controls AI behaviour and platform configuration</div>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.settings.update') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label class="form-label">Primary SMS Language</label>
+                        <select name="primary_language" class="form-select">
+                            <option value="sw" {{ ($settings['primary_language'] ?? 'sw') == 'sw' ? 'selected' : '' }}>
+                                🇹🇿 Swahili (Kiswahili)
+                            </option>
+                            <option value="en" {{ ($settings['primary_language'] ?? 'sw') == 'en' ? 'selected' : '' }}>
+                                🇬🇧 English
+                            </option>
+                        </select>
+                        <div class="form-hint">Determines which prompt template and curriculum subset to prioritize for AI responses.</div>
+                    </div>
 
-            <form action="{{ route("admin.settings.update") }}" class="space-y-6" method="POST">
-                @csrf
+                    <div class="form-group">
+                        <label class="form-label">Bot Name (Branding)</label>
+                        <input type="text" name="bot_name" class="form-input"
+                               value="{{ $settings['bot_name'] ?? env('APP_NAME') }}"
+                               placeholder="HuruLearn">
+                        <div class="form-hint">Used in admin branding only. Does not affect SMS responses.</div>
+                    </div>
 
-                <!-- Default Language -->
-                <div>
-                    <label class="mb-2 block text-sm font-medium text-gray-700">Primary SMS Language</label>
-                    <select
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        name="primary_language">
-                        <option {{ ($settings["primary_language"] ?? "sw") == "sw" ? "selected" : "" }} value="sw">
-                            Swahili (Kiswahili)</option>
-                        <option {{ ($settings["primary_language"] ?? "sw") == "en" ? "selected" : "" }} value="en">
-                            English</option>
-                    </select>
-                    <p class="mt-2 text-sm text-gray-500">Determines which prompt template and curriculum subset to
-                        prioritize.</p>
-                </div>
+                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
 
-                <!-- Bot Personality -->
-                <div>
-                    <label class="mb-2 block text-sm font-medium text-gray-700">Bot Name (Internal/Branding)</label>
-                    <input
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        name="bot_name" type="text" value="{{ $settings["bot_name"] ?? env("APP_NAME") }}">
-                </div>
-
-                <hr>
-
-                <div class="flex justify-end pt-4">
-                    <button
-                        class="rounded-md bg-blue-600 px-6 py-2 font-semibold text-white shadow transition hover:bg-blue-700"
-                        type="submit">
-                        Save Configuration
-                    </button>
-                </div>
-            </form>
+                    <div style="display:flex; justify-content:flex-end;">
+                        <button type="submit" class="btn btn-primary">💾 Save Configuration</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <div class="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
-            <h4 class="mb-2 font-bold text-blue-800">How this works</h4>
-            <ul class="list-inside list-disc space-y-1 text-sm text-blue-700">
-                <li>Primary language affects keyword matching priority.</li>
-                <li>Templates must be created for the selected language to work correctly.</li>
-                <li>Curriculum content uploaded for other languages will still be searchable if specific keywords match.
-                </li>
-            </ul>
+        <!-- Info Card -->
+        <div class="card" style="margin-top:1.5rem; border-color:rgba(59,130,246,0.2);">
+            <div class="card-header" style="border-color:rgba(59,130,246,0.15);">
+                <div class="card-title" style="color:var(--blue-light);">ℹ️ How Settings Work</div>
+            </div>
+            <div class="card-body">
+                <ul style="list-style:none; display:flex; flex-direction:column; gap:.8rem;">
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
+                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
+                        Primary language affects keyword matching priority across the AI engine.
+                    </li>
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
+                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
+                        Templates must be created for the selected language to work correctly.
+                    </li>
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
+                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
+                        Curriculum content for other languages is still searchable when keywords match.
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 @endsection

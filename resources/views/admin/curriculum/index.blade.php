@@ -1,79 +1,94 @@
 @extends("layouts.admin", ["title" => "Curriculum Management"])
 
 @section("content")
-    <div class="flex flex-col gap-6 md:flex-row">
-        <!-- Import Column -->
-        <div class="md:w-1/3">
-            <div class="sticky top-24 rounded-lg bg-white p-6 shadow">
-                <h2 class="mb-4 text-xl font-bold">Import Curriculum</h2>
-                <form action="{{ route("admin.curriculum.import") }}" class="space-y-4" enctype="multipart/form-data"
-                    method="POST">
+    <div style="display:grid; grid-template-columns:320px 1fr; gap:1.5rem; align-items:start;">
+
+        <!-- Import Panel -->
+        <div class="card" style="position:sticky; top:80px;">
+            <div class="card-header">
+                <div class="card-title">📤 Import Curriculum</div>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.curriculum.import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">CSV File</label>
-                        <input
-                            class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
-                            name="csv_file" required type="file">
-                        <p class="mt-1 text-xs text-gray-500">Columns: title, content, summary, tags</p>
+                    <div class="form-group">
+                        <label class="form-label">CSV File</label>
+                        <div style="border:2px dashed rgba(255,255,255,0.15); border-radius:12px; padding:1.5rem; text-align:center; cursor:pointer; transition:border-color .2s;"
+                             onmouseover="this.style.borderColor='rgba(245,158,11,0.5)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)'">
+                            <div style="font-size:2rem; margin-bottom:.5rem;">📂</div>
+                            <label for="csv_file" style="cursor:pointer; color:var(--amber-light); font-size:.85rem; font-weight:600;">Click to choose CSV</label>
+                            <input type="file" id="csv_file" name="csv_file" required accept=".csv"
+                                   style="display:none;" onchange="document.getElementById('file-name').textContent = this.files[0]?.name || ''">
+                            <div id="file-name" style="font-size:.75rem; color:var(--gray-500); margin-top:.4rem;"></div>
+                        </div>
+                        <div class="form-hint">Columns: title, content, summary, tags</div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Language</label>
-                        <select
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            name="language">
-                            <option value="sw">Swahili</option>
-                            <option value="en">English</option>
+                    <div class="form-group">
+                        <label class="form-label">Curriculum Language</label>
+                        <select name="language" class="form-select">
+                            <option value="sw">🇹🇿 Swahili (Kiswahili)</option>
+                            <option value="en">🇬🇧 English</option>
                         </select>
                     </div>
-                    <button class="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700"
-                        type="submit">Import Data</button>
+                    <button type="submit" class="btn btn-primary btn-full">⬆ Import Data</button>
                 </form>
             </div>
         </div>
 
-        <!-- List Column -->
-        <div class="md:w-2/3">
-            <div class="overflow-hidden rounded-lg bg-white shadow">
-                <div class="border-b px-6 py-4">
-                    <h2 class="text-xl font-bold">Curriculum Entries</h2>
+        <!-- Entries Table -->
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">📚 Curriculum Entries</div>
+                    <div class="card-subtitle">{{ $curriculums->total() }} total records</div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Language</th>
+                            <th>Tags</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($curriculums as $item)
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Title</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Lang</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Tags</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Actions</th>
+                                <td style="font-weight:600; color:var(--gray-200); max-width:260px;">
+                                    <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ $item->title }}</div>
+                                </td>
+                                <td>
+                                    @if($item->language === 'sw')
+                                        <span class="badge badge-amber">🇹🇿 SW</span>
+                                    @else
+                                        <span class="badge badge-blue">🇬🇧 EN</span>
+                                    @endif
+                                </td>
+                                <td style="color:var(--gray-500); font-size:.8rem;">{{ $item->tags ?? '—' }}</td>
+                                <td>
+                                    <form action="{{ route('admin.curriculum.destroy', $item) }}" method="POST"
+                                          onsubmit="return confirm('Delete this curriculum entry?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">🗑 Delete</button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            @forelse($curriculums as $item)
-                                <tr>
-                                    <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $item->title }}</td>
-                                    <td class="px-6 py-4 text-sm uppercase text-gray-500">{{ $item->language }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">{{ $item->tags ?? "-" }}</td>
-                                    <td class="px-6 py-4 text-sm font-medium">
-                                        <form action="{{ route("admin.curriculum.destroy", $item) }}" method="POST"
-                                            onsubmit="return confirm('Delete this entry?')">
-                                            @csrf
-                                            @method("DELETE")
-                                            <button class="text-red-600 hover:text-red-900" type="submit">Delete</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td class="px-6 py-4 text-center text-gray-500" colspan="4">No curriculum found.
-                                        Import some!</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="border-t px-6 py-4">
-                    {{ $curriculums->links() }}
-                </div>
+                        @empty
+                            <tr>
+                                <td colspan="4" style="text-align:center; padding:3rem; color:var(--gray-600);">
+                                    <div style="font-size:2rem; margin-bottom:.5rem;">📭</div>
+                                    No curriculum yet. Import your first CSV!
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div style="padding:1rem 1.5rem; border-top:1px solid rgba(255,255,255,0.07);">
+                {{ $curriculums->links('vendor.pagination.admin-dark') }}
             </div>
         </div>
     </div>
