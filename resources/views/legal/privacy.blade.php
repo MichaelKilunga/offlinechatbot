@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy — HuruLearn</title>
+    <title>Privacy Policy &mdash; HuruLearn</title>
+    <meta name="description" content="Read HuruLearn's Privacy Policy to understand how we collect, use, and protect your data when using our AI-powered SMS education service in Tanzania.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://hurulearn.hurudigital.co.tz/privacy-policy">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HuruLearn">
+    <meta property="og:title" content="Privacy Policy &mdash; HuruLearn">
+    <meta property="og:description" content="Read HuruLearn's Privacy Policy for our AI-powered SMS education platform.">
+    <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/privacy-policy">
+    <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
+
+    {{-- JSON-LD Breadcrumb --}}
+    @verbatim
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hurulearn.hurudigital.co.tz/" },
+        { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://hurulearn.hurudigital.co.tz/privacy-policy" }
+      ]
+    }
+    </script>
+    @endverbatim
     <link rel="icon" href="/logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -77,10 +103,13 @@
 
         <section>
             <h2>5. Your Rights</h2>
-            <p>If you wish to have your phone number and message history deleted from our system, please contact us at <strong>info@hurulearn.co.tz</strong> with your request.</p>
+            <p>If you wish to have your phone number and message history deleted from our system, please contact us at <strong>info@hurulearn.hurudigital.co.tz</strong> with your request.</p>
         </section>
 
         <a href="/" class="footer-link">← Back to Homepage</a>
+        <nav style="margin-top:1rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="{{ route('legal.terms') }}" style="color:var(--blue); text-decoration:none; font-size:.875rem;">Terms &amp; Conditions →</a>
+        </nav>
     </div>
 </body>
 </html>

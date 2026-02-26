@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions — HuruLearn</title>
+    <title>Terms &amp; Conditions &mdash; HuruLearn</title>
+    <meta name="description" content="Read the Terms and Conditions governing use of HuruLearn, the AI-powered SMS education platform by Huru Digital Co. Ltd., serving students across Tanzania.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://hurulearn.hurudigital.co.tz/terms-and-conditions">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HuruLearn">
+    <meta property="og:title" content="Terms &amp; Conditions &mdash; HuruLearn">
+    <meta property="og:description" content="Read the Terms and Conditions governing use of HuruLearn SMS educational platform.">
+    <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/terms-and-conditions">
+    <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
+
+    {{-- JSON-LD Breadcrumb --}}
+    @verbatim
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hurulearn.hurudigital.co.tz/" },
+        { "@type": "ListItem", "position": 2, "name": "Terms & Conditions", "item": "https://hurulearn.hurudigital.co.tz/terms-and-conditions" }
+      ]
+    }
+    </script>
+    @endverbatim
     <link rel="icon" href="/logo.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -73,6 +99,9 @@
         </section>
 
         <a href="/" class="footer-link">← Back to Homepage</a>
+        <nav style="margin-top:1rem; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="{{ route('legal.privacy') }}" style="color:var(--blue); text-decoration:none; font-size:.875rem;">Privacy Policy →</a>
+        </nav>
     </div>
 </body>
 </html>

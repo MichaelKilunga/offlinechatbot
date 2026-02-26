@@ -1,15 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HuruLearn – AI-Powered SMS Education for All</title>
-    <meta name="description" content="HuruLearn delivers curriculum-aligned AI education through basic SMS. No internet. No smartphone. Just learning.">
+
+    {{-- ═══════════════════════════════════════════════════════
+         PRIMARY SEO META
+    ═══════════════════════════════════════════════════════ --}}
+    <title>HuruLearn – AI-Powered SMS Education for Every Student in Africa</title>
+    <meta name="description" content="HuruLearn delivers curriculum-aligned AI tutoring through basic SMS — no internet, no smartphone required. Serving students across Tanzania and sub-Saharan Africa. Text HURU to 15054.">
+    <meta name="keywords" content="SMS education Africa, AI tutoring Tanzania, offline learning, curriculum-aligned SMS, HuruLearn, Huru Digital, educational technology Africa, Kiswahili education, no internet learning, SDG 4 education">
+    <meta name="author" content="Huru Digital Co. Ltd.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow">
+
+    {{-- Canonical URL --}}
+    <link rel="canonical" href="https://hurulearn.hurudigital.co.tz/">
+
+    {{-- Alternate languages --}}
+    <link rel="alternate" hreflang="en" href="https://hurulearn.hurudigital.co.tz/">
+    <link rel="alternate" hreflang="sw" href="https://hurulearn.hurudigital.co.tz/">
+    <link rel="alternate" hreflang="x-default" href="https://hurulearn.hurudigital.co.tz/">
+
+    {{-- ═══════════════════════════════════════════════════════
+         OPEN GRAPH (Facebook, LinkedIn, WhatsApp …)
+    ═══════════════════════════════════════════════════════ --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="HuruLearn">
+    <meta property="og:title" content="HuruLearn – AI-Powered SMS Education for Every Student in Africa">
+    <meta property="og:description" content="Curriculum-aligned AI tutoring delivered via basic SMS. No internet. No smartphone. Just knowledge — instantly. Text HURU to 15054.">
+    <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/">
+    <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="HuruLearn — AI SMS Education Platform for Africa">
+    <meta property="og:locale" content="en_TZ">
+    <meta property="og:locale:alternate" content="sw_TZ">
+
+    {{-- ═══════════════════════════════════════════════════════
+         TWITTER / X CARD
+    ═══════════════════════════════════════════════════════ --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@HuruLearnTZ">
+    <meta name="twitter:creator" content="@HuruDigitalCoLtd">
+    <meta name="twitter:title" content="HuruLearn – AI SMS Education for Africa">
+    <meta name="twitter:description" content="Curriculum-aligned AI tutoring via basic SMS. No internet. No smartphone. Text HURU to 15054.">
+    <meta name="twitter:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
+    <meta name="twitter:image:alt" content="HuruLearn SMS Education Platform">
+
+    {{-- ═══════════════════════════════════════════════════════
+         GEO / REGIONAL META
+    ═══════════════════════════════════════════════════════ --}}
+    <meta name="geo.region" content="TZ">
+    <meta name="geo.placename" content="Tanzania">
+    <meta name="geo.position" content="-6.369028;34.888822">
+    <meta name="ICBM" content="-6.369028, 34.888822">
+
+    {{-- ═══════════════════════════════════════════════════════
+         PWA / MANIFEST
+    ═══════════════════════════════════════════════════════ --}}
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/logo.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/logo.svg">
     <meta name="theme-color" content="#1e1b4b">
+
+    {{-- ═══════════════════════════════════════════════════════
+         JSON-LD STRUCTURED DATA
+    ═══════════════════════════════════════════════════════ --}}
+    @verbatim
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://hurulearn.hurudigital.co.tz/#organization",
+          "name": "Huru Digital Co. Ltd.",
+          "url": "https://hurulearn.hurudigital.co.tz",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://hurulearn.hurudigital.co.tz/logo.svg",
+            "width": 100,
+            "height": 100
+          },
+          "description": "Huru Digital Co. Ltd. builds AI-powered SMS education tools for students in Tanzania and sub-Saharan Africa.",
+          "foundingDate": "2024",
+          "areaServed": [
+            { "@type": "Country", "name": "Tanzania" },
+            { "@type": "Continent", "name": "Africa" }
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "info@hurulearn.hurudigital.co.tz",
+            "contactType": "customer support",
+            "availableLanguage": ["English", "Swahili"]
+          },
+          "sameAs": [
+            "https://twitter.com/HuruLearnTZ"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://hurulearn.hurudigital.co.tz/#website",
+          "url": "https://hurulearn.hurudigital.co.tz",
+          "name": "HuruLearn",
+          "description": "AI-powered SMS education platform for students in Africa",
+          "publisher": { "@id": "https://hurulearn.hurudigital.co.tz/#organization" },
+          "inLanguage": ["en", "sw"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://hurulearn.hurudigital.co.tz/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://hurulearn.hurudigital.co.tz/#webpage",
+          "url": "https://hurulearn.hurudigital.co.tz",
+          "name": "HuruLearn – AI-Powered SMS Education for Every Student in Africa",
+          "description": "HuruLearn delivers curriculum-aligned AI tutoring through basic SMS. No internet. No smartphone. Text HURU to 15054.",
+          "isPartOf": { "@id": "https://hurulearn.hurudigital.co.tz/#website" },
+          "about": { "@id": "https://hurulearn.hurudigital.co.tz/#organization" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "HuruLearn SMS Tutor",
+          "applicationCategory": "EducationalApplication",
+          "operatingSystem": "Any GSM feature phone",
+          "description": "Send HURU followed by any curriculum question via SMS to get instant AI-generated, curriculum-aligned answers in English or Swahili.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free to use; standard SMS rates from your carrier apply."
+          },
+          "publisher": { "@id": "https://hurulearn.hurudigital.co.tz/#organization" },
+          "availableOnDevice": "Feature Phone",
+          "inLanguage": ["en", "sw"]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I use HuruLearn?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Text HURU followed by your question to 15054 from any GSM mobile phone. No internet or smartphone is required. Example: HURU what is photosynthesis?"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does HuruLearn require internet?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. HuruLearn works entirely over standard GSM SMS. You only need a basic mobile phone and airtime."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What languages does HuruLearn support?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HuruLearn supports both English and Kiswahili, so students can ask questions and receive answers in their preferred language."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is HuruLearn free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HuruLearn does not charge a subscription fee. Standard SMS rates from your mobile network provider apply for each message you send."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    @endverbatim
+
+    {{-- ═══════════════════════════════════════════════════════
+         FONTS & PERFORMANCE
+    ═══════════════════════════════════════════════════════ --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -32,7 +208,7 @@
         body { font-family: 'Inter', sans-serif; background: var(--indigo-dark); color: var(--white); overflow-x: hidden; }
 
         /* NAV */
-        nav {
+        #navbar {
             position: fixed; top: 0; left: 0; right: 0; z-index: 999;
             padding: 1.2rem 2rem;
             display: flex; align-items: center; justify-content: space-between;
@@ -327,7 +503,22 @@
         @media (max-width: 768px) {
             .hero-inner, .vm-grid { grid-template-columns: 1fr; }
             .hero-visual { order: -1; }
-            .nav-links { display: none; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15,13,46,0.95);
+                backdrop-filter: blur(16px);
+                padding: 2rem;
+                gap: 1.5rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            .nav-links.active { display: flex; }
             .hamburger { display: flex; }
             .roadmap-track { left: 24px; }
             .footer-inner { flex-direction: column; text-align: center; }
@@ -394,6 +585,70 @@
             0%, 100% { box-shadow: 0 6px 24px rgba(245,158,11,0.45), 0 0 0 0 rgba(245,158,11,0.25); }
             50% { box-shadow: 0 6px 24px rgba(245,158,11,0.45), 0 0 0 10px rgba(245,158,11,0); }
         }
+
+        /* ── SMS FLOATING ACTION BUTTON ── */
+        #sms-fab {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 9001;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #14b8a6, #3b82f6);
+            box-shadow: 0 6px 28px rgba(20,184,166,0.5), 0 0 0 0 rgba(20,184,166,0.3);
+            text-decoration: none;
+            transition: transform .25s ease, box-shadow .25s ease;
+            animation: smsFabPulse 2.8s ease-in-out infinite;
+        }
+        #sms-fab:hover {
+            transform: scale(1.13) translateY(-4px);
+            box-shadow: 0 14px 40px rgba(20,184,166,0.65), 0 0 0 8px rgba(20,184,166,0.12);
+        }
+        #sms-fab:active { transform: scale(0.96); }
+        #sms-fab svg {
+            width: 26px; height: 26px;
+            fill: none; stroke: #fff;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+        }
+        #sms-fab .sms-fab-badge {
+            position: absolute; top: -3px; right: -3px;
+            width: 20px; height: 20px; border-radius: 50%;
+            background: var(--amber); border: 2px solid var(--indigo-dark);
+            display: flex; align-items: center; justify-content: center;
+            font-size: .5rem; font-weight: 800; color: #fff; letter-spacing: -.02em;
+        }
+        #sms-fab .sms-fab-tooltip {
+            position: absolute; left: 68px; top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10,8,32,0.94);
+            border: 1px solid rgba(20,184,166,0.4);
+            color: #5eead4; font-size: .72rem; font-weight: 600;
+            padding: .4rem 1rem; border-radius: 8px;
+            white-space: nowrap; pointer-events: none;
+            opacity: 0; transition: opacity .2s ease; line-height: 1.6;
+        }
+        #sms-fab .sms-fab-tooltip strong { display: block; color: #fff; font-size: .78rem; }
+        #sms-fab:hover .sms-fab-tooltip { opacity: 1; }
+        @keyframes smsFabPulse {
+            0%, 100% { box-shadow: 0 6px 28px rgba(20,184,166,0.5), 0 0 0 0 rgba(20,184,166,0.3); }
+            50% { box-shadow: 0 6px 28px rgba(20,184,166,0.5), 0 0 0 14px rgba(20,184,166,0); }
+        }
+        #sms-fab-label {
+            position: fixed; bottom: 6.4rem; left: 2rem; z-index: 9001;
+            font-size: .62rem; font-weight: 700; color: #5eead4;
+            letter-spacing: .05em; text-transform: uppercase;
+            pointer-events: none; opacity: 0; transition: opacity .4s ease;
+            text-align: center; width: 58px;
+        }
+        @media (max-width: 768px) { #sms-fab-label { opacity: 1; } }
+
+        .skip-link:focus { top: 0; }
     </style>
 </head>
 <body>
@@ -412,13 +667,16 @@
 </div>
 @endif
 
+<!-- Skip to content (accessibility + SEO) -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- NAV -->
-<nav id="navbar">
-    <a href="#" class="nav-logo">
-        <img src="/logo.svg" alt="Logo" style="width: 38px; height: 38px;">
+<nav id="navbar" aria-label="Primary navigation">
+    <a href="/" class="nav-logo" aria-label="HuruLearn home">
+        <img src="/logo.svg" alt="HuruLearn logo" width="38" height="38" style="width: 38px; height: 38px;">
         <span class="nav-logo-text">HuruLearn</span>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" role="list">
         <li><a href="#about">About</a></li>
         <li><a href="#solution">Solution</a></li>
         <li><a href="#features">Features</a></li>
@@ -426,19 +684,20 @@
         <li><a href="#team">Team</a></li>
         <li><a href="#sponsors" class="nav-cta">Become a Partner</a></li>
     </ul>
-    <div class="hamburger" id="hamburger">
+    <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0" aria-expanded="false">
         <span></span><span></span><span></span>
     </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero" id="hero">
+<main id="main-content">
+<section class="hero" id="hero" aria-labelledby="hero-heading">
     <div class="hero-inner">
         <div>
             <div class="hero-badge">
                 <span></span> Live on Africa's Talking SMS Network
             </div>
-            <h1>Education for Every<br><span class="highlight">Student in Africa</span><br>via Simple SMS</h1>
+            <h1 id="hero-heading">Education for Every<br><span class="highlight">Student in Africa</span><br>via Simple SMS</h1>
             <p class="hero-desc">
                 HuruLearn is an AI-powered learning platform that delivers curriculum-aligned answers through basic SMS — no internet, no smartphone required. Just knowledge, instantly.
             </p>
@@ -836,7 +1095,7 @@
                 <form action="{{ route('contact.submit') }}" method="POST" style="display:inline;">
                     @csrf
                     <input type="hidden" name="type" value="impact_deck">
-                    <input type="hidden" name="email" value="visitor@hurulearn.co.tz">
+                    <input type="hidden" name="email" value="visitor@hurulearn.hurudigital.co.tz">
                     <button type="submit" class="btn-outline">📄 Request Impact Deck</button>
                 </form>
             </div>
@@ -862,17 +1121,21 @@
     </div>
 </section>
 
+</main><!-- /#main-content -->
+
 <!-- FOOTER -->
-<footer>
+<footer aria-label="Site footer">
     <div class="footer-inner">
-        <div class="footer-brand">
-            <img src="/logo.svg" alt="Logo" style="width: 36px; height: 36px;">
+        <address class="footer-brand" style="font-style:normal;">
+            <a href="/" aria-label="HuruLearn home">
+                <img src="/logo.svg" alt="HuruLearn logo" width="36" height="36" style="width: 36px; height: 36px;">
+            </a>
             <div>
                 <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem;">HuruLearn</div>
                 <div style="font-size:.75rem; color:var(--gray-400);">by Huru Digital Co. Ltd.</div>
             </div>
-        </div>
-        <div class="footer-links">
+        </address>
+        <nav class="footer-links" aria-label="Footer navigation">
             <a href="#about">About</a>
             <a href="#solution">Solution</a>
             <a href="#features">Features</a>
@@ -880,10 +1143,9 @@
             <a href="#sponsors">Partner</a>
             <a href="{{ route('legal.terms') }}">Terms</a>
             <a href="{{ route('legal.privacy') }}">Privacy</a>
-            <a href="{{ route('admin.dashboard') }}">Admin</a>
-        </div>
+        </nav>
         <div class="footer-copy">
-            &copy; {{ date('Y') }} Huru Digital Co. Ltd. — Empowering Learners via SMS.
+            &copy; {{ date('Y') }} Huru Digital Co. Ltd. &mdash; Empowering Learners via SMS.
         </div>
     </div>
 </footer>
@@ -932,6 +1194,24 @@
 </div>
 
 <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+        });
+        
+        // Close menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
@@ -972,6 +1252,23 @@
     </svg>
     <span class="fab-tooltip" id="fab-tooltip">Back to top</span>
 </button>
+
+<!-- SMS FLOATING BUTTON -->
+<a id="sms-fab"
+   href="sms:15054?body=HURU%20"
+   aria-label="Send us an SMS"
+   title="Text HURU to 15054">
+    {{-- Chat / SMS icon --}}
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    {{-- <span class="sms-fab-badge" aria-hidden="true">SMS</span> --}}
+    <span class="sms-fab-tooltip" role="tooltip">
+        <strong>Try HuruLearn now!</strong>
+        Text HURU to <span style="color:var(--amber-light);">15054</span>
+    </span>
+</a>
+{{-- <div id="sms-fab-label" aria-hidden="true">SMS Us</div> --}}
 
 <script>
     (function () {

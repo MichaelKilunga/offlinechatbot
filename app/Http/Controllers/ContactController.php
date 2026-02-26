@@ -66,7 +66,7 @@ class ContactController extends Controller
 
         $lines[] = "";
         $lines[] = "Received at: " . now()->toDateTimeString() . " (EAT)";
-        $lines[] = "Platform   : HuruLearn SMS Learning — https://hurulearn.co.tz";
+        $lines[] = "Platform   : HuruLearn SMS Learning — https://hurulearn.hurudigital.co.tz";
 
         return implode("\n", $lines);
     }
