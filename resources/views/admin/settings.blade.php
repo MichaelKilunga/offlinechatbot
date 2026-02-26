@@ -71,7 +71,7 @@
                         <input type="number" name="ai_max_tokens" class="form-input"
                                value="{{ $settings['ai_max_tokens'] ?? 8000 }}"
                                min="500" max="10000">
-                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate (Note: Gemini 2.5 Flash uses many hidden 'thinking' tokens, so 8000+ is recommended).</div>
+                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate (Gemini Flash Lite is highly efficient, 2000-4000 is recommended).</div>
                     </div>
 
                     <div class="form-group">
