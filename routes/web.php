@@ -12,6 +12,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Legal Pages
+Route::view('/terms-and-conditions', 'legal.terms')->name('legal.terms');
+Route::view('/privacy-policy', 'legal.privacy')->name('legal.privacy');
+
 // Landing page contact / subscribe / partner forms
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 

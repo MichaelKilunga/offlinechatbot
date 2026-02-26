@@ -21,6 +21,12 @@
             <div class="stat-value">{{ $messagesToday }}</div>
             <div class="stat-icon">📈</div>
         </div>
+        <div class="stat-card" style="border-color:rgba(239,68,68,0.25);">
+            <div class="stat-card-glow" style="background:var(--danger);"></div>
+            <div class="stat-label">Banned Users</div>
+            <div class="stat-value">{{ $bannedUsers }}</div>
+            <div class="stat-icon">🚫</div>
+        </div>
     </div>
 
     <!-- Recent Interactions -->
@@ -49,7 +55,14 @@
                                 {{ $msg->created_at->format("H:i:s") }}
                                 <div style="color:var(--gray-600); font-size:.7rem;">{{ $msg->created_at->diffForHumans() }}</div>
                             </td>
-                            <td style="font-weight:600; color:var(--gray-200);">{{ $msg->user->phone_number }}</td>
+                            <td style="font-weight:600; color:var(--gray-200);">
+                                {{ $msg->user->phone_number }}
+                                @if($msg->user->is_banned)
+                                    <div style="font-size:.65rem; color:var(--danger); font-weight:700; margin-top:.2rem;">🚩 BANNED</div>
+                                @elseif($msg->user->abuse_count > 0)
+                                    <div style="font-size:.65rem; color:var(--warning); font-weight:700; margin-top:.2rem;">⚠️ Strike {{ $msg->user->abuse_count }}</div>
+                                @endif
+                            </td>
                             <td>
                                 @if($msg->direction === 'inbound')
                                     <span class="badge badge-green">⬇ Inbound</span>
@@ -58,7 +71,8 @@
                                 @endif
                             </td>
                             <td style="max-width:320px;" title="{{ $msg->content }}">
-                                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:300px;">{{ $msg->content }}</div>
+                                @php $isModerated = str_contains($msg->content, 'ONYO') || str_contains($msg->content, 'WARNING') || str_contains($msg->content, 'BANNED'); @endphp
+                                <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:300px; @if($isModerated) color:var(--danger); font-style:italic; @endif">{{ $msg->content }}</div>
                             </td>
                             <td>
                                 @if($msg->aiLog)
@@ -66,6 +80,8 @@
                                         <div style="font-size:.78rem; font-weight:600; color:var(--amber-light);">{{ $msg->aiLog->model }}</div>
                                         <div style="font-size:.7rem; color:var(--gray-500);">{{ $msg->aiLog->total_tokens ?? 0 }} tokens</div>
                                     </div>
+                                @elseif($isModerated)
+                                    <span class="badge badge-red">Moderated</span>
                                 @else
                                     <span style="color:var(--gray-600);">—</span>
                                 @endif

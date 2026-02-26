@@ -22,6 +22,8 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'is_admin',
+        'is_banned',
+        'abuse_count',
     ];
 
     /**
@@ -40,6 +42,8 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'is_banned' => 'boolean',
+            'abuse_count' => 'integer',
         ];
     }
 

@@ -35,6 +35,24 @@
 
                     <div class="form-group">
                         <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
+                            <span style="font-size:1.2rem;">🔌</span> AI Engine Status
+                        </label>
+                        <select name="ai_enabled" class="form-select">
+                            <option value="1" {{ ($settings['ai_enabled'] ?? '1') == '1' ? 'selected' : '' }}>🟢 Active (Processing SMS)</option>
+                            <option value="0" {{ ($settings['ai_enabled'] ?? '1') == '0' ? 'selected' : '' }}>🔴 Paused (Maintenance Mode)</option>
+                        </select>
+                        <div class="form-hint">Turn off to temporarily stop the AI from replying to incoming SMS. Useful during maintenance or budget limits.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Maintenance Auto-Reply Message</label>
+                        <textarea name="ai_maintenance_message" class="form-textarea" rows="2">{{ $settings['ai_maintenance_message'] ?? 'Samahani, mfumo wetu unafanyiwa matengenezo. Tafadhali jaribu tena baadaye. (System is under maintenance, please try later.)' }}</textarea>
+                    </div>
+
+                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
                             <span style="font-size:1.2rem;">📝</span> Max Response Words (Prompt Instruction)
                         </label>
                         <input type="number" name="ai_max_words" class="form-input"
@@ -90,6 +108,10 @@
                     <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
                         <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
                         Curriculum content for other languages is still searchable when keywords match.
+                    </li>
+                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
+                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
+                        If AI is paused, incoming SMS will receive the maintenance message without contacting the AI API point.
                     </li>
                 </ul>
             </div>

@@ -71,26 +71,26 @@ class PromptEngine
         return $finalPrompt . "\n\n" . $constraints;
     }
 
-    /**
-     * Detects if the question is likely Swahili or English.
-     * Returns null if detection fails confidently.
-     */
     private function detectLanguage(string $text): ?string
     {
-        $swahiliKeywords = ['nini', 'vipi', 'gani', 'habari', 'naomba', 'msaada', 'kuelewa', 'maada', 'mwalimu', 'kufundisha', 'eleza', 'kiswahili'];
-        $englishKeywords = ['what', 'how', 'why', 'explain', 'teach', 'help', 'matter', 'physics', 'biology', 'chemistry', 'science'];
+        $swahiliKeywords = ['nini', 'vipi', 'gani', 'habari', 'naomba', 'msaada', 'kuelewa', 'maada', 'mwalimu', 'kufundisha', 'eleza', 'kiswahili', 'kwa', 'ya', 'na', 'ni', 'wa', 'za', 'kama', 'jinsi', 'mtihani', 'swali', 'mbona', 'lini', 'wapi', 'nani', 'aina', 'tofauti'];
+        $englishKeywords = ['what', 'how', 'why', 'explain', 'teach', 'help', 'matter', 'physics', 'biology', 'chemistry', 'science', 'is', 'are', 'the', 'of', 'and', 'to', 'in', 'for', 'who', 'when', 'where', 'describe', 'define', 'difference', 'types'];
         
         $text = Str::lower($text);
         
-        // Check Swahili first (priority for local context)
-        foreach ($swahiliKeywords as $word) {
-            if (Str::contains($text, $word)) return 'sw';
+        $swMatches = 0;
+        $enMatches = 0;
+        
+        // Extract words, ignoring punctuation
+        $words = preg_split('/\W+/', $text, -1, PREG_SPLIT_NO_EMPTY);
+        
+        foreach ($words as $word) {
+            if (in_array($word, $swahiliKeywords)) $swMatches++;
+            if (in_array($word, $englishKeywords)) $enMatches++;
         }
-
-        // Check English
-        foreach ($englishKeywords as $word) {
-            if (Str::contains($text, $word)) return 'en';
-        }
+        
+        if ($swMatches > $enMatches) return 'sw';
+        if ($enMatches > $swMatches) return 'en';
 
         return null; // Return null to trigger fallback in build()
     }
@@ -144,17 +144,14 @@ class PromptEngine
         return $relevant->map(fn($c) => "[MADA: {$c->title}]\n{$c->content}")->first();
     }
 
-    /**
-     * Returns the strict formatting instructions to minimize SMS cost and maximize focus.
-     */
     private function getConstraints(string $language): string
     {
         $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 50;
 
         if ($language === 'sw') {
-            return "MASHARTI MUHIMU:\n- Jibu kwa lugha ya Kiswahili pekee.\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
+            return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwanafunzi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
         }
 
-        return "STRICT CONSTRAINTS:\n- Respond in English only.\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation.";
+        return "STRICT CONSTRAINTS:\n- YOU MUST detect the exact language of the student's question and respond entirely in that SAME language (English or Swahili).\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation.";
     }
 }

@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HuruLearn – AI-Powered SMS Education for All</title>
     <meta name="description" content="HuruLearn delivers curriculum-aligned AI education through basic SMS. No internet. No smartphone. Just learning.">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.svg">
+    <meta name="theme-color" content="#1e1b4b">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -329,6 +333,67 @@
             .footer-inner { flex-direction: column; text-align: center; }
             .footer-links { justify-content: center; }
         }
+        /* SCROLL FAB */
+        #scroll-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9000;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--amber), var(--blue));
+            box-shadow: 0 6px 24px rgba(245,158,11,0.45), 0 0 0 0 rgba(245,158,11,0.3);
+            transition: transform .25s ease, box-shadow .25s ease, opacity .3s ease;
+            opacity: 0;
+            pointer-events: none;
+            animation: fabPulse 2.5s ease-in-out infinite;
+        }
+        #scroll-fab.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #scroll-fab:hover {
+            transform: scale(1.12) translateY(-3px);
+            box-shadow: 0 12px 36px rgba(245,158,11,0.6), 0 0 0 6px rgba(245,158,11,0.15);
+        }
+        #scroll-fab svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform .3s ease;
+        }
+        #scroll-fab .fab-tooltip {
+            position: absolute;
+            right: 62px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10,8,32,0.9);
+            border: 1px solid rgba(245,158,11,0.3);
+            color: var(--amber-light);
+            font-size: .72rem;
+            font-weight: 600;
+            padding: .35rem .8rem;
+            border-radius: 8px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .2s ease;
+        }
+        #scroll-fab:hover .fab-tooltip { opacity: 1; }
+        @keyframes fabPulse {
+            0%, 100% { box-shadow: 0 6px 24px rgba(245,158,11,0.45), 0 0 0 0 rgba(245,158,11,0.25); }
+            50% { box-shadow: 0 6px 24px rgba(245,158,11,0.45), 0 0 0 10px rgba(245,158,11,0); }
+        }
     </style>
 </head>
 <body>
@@ -350,7 +415,7 @@
 <!-- NAV -->
 <nav id="navbar">
     <a href="#" class="nav-logo">
-        <div class="nav-logo-icon">H</div>
+        <img src="/logo.svg" alt="Logo" style="width: 38px; height: 38px;">
         <span class="nav-logo-text">HuruLearn</span>
     </a>
     <ul class="nav-links">
@@ -801,7 +866,7 @@
 <footer>
     <div class="footer-inner">
         <div class="footer-brand">
-            <div class="footer-brand-icon">H</div>
+            <img src="/logo.svg" alt="Logo" style="width: 36px; height: 36px;">
             <div>
                 <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:1rem;">HuruLearn</div>
                 <div style="font-size:.75rem; color:var(--gray-400);">by Huru Digital Co. Ltd.</div>
@@ -813,6 +878,8 @@
             <a href="#features">Features</a>
             <a href="#roadmap">Roadmap</a>
             <a href="#sponsors">Partner</a>
+            <a href="{{ route('legal.terms') }}">Terms</a>
+            <a href="{{ route('legal.privacy') }}">Privacy</a>
             <a href="{{ route('admin.dashboard') }}">Admin</a>
         </div>
         <div class="footer-copy">
@@ -885,6 +952,72 @@
     document.getElementById('partner-modal').addEventListener('click', function(e) {
         if (e.target === this) this.style.display = 'none';
     });
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then((reg) => {
+                console.log('ServiceWorker registration successful');
+            }).catch((err) => {
+                console.log('ServiceWorker registration failed:', err);
+            });
+        });
+    }
+</script>
+
+<!-- SCROLL FAB -->
+<button id="scroll-fab" aria-label="Scroll" title="">
+    <svg id="fab-icon" viewBox="0 0 24 24">
+        <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+    <span class="fab-tooltip" id="fab-tooltip">Back to top</span>
+</button>
+
+<script>
+    (function () {
+        const fab = document.getElementById('scroll-fab');
+        const fabIcon = document.getElementById('fab-icon');
+        const fabTooltip = document.getElementById('fab-tooltip');
+        const threshold = 300; // px from top before button appears
+
+        function updateFab() {
+            const scrolled = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const nearBottom = scrolled > maxScroll - 200;
+
+            // Show/hide
+            if (scrolled > threshold) {
+                fab.classList.add('visible');
+            } else {
+                fab.classList.remove('visible');
+            }
+
+            // Toggle direction
+            if (nearBottom) {
+                // Show "go to top" arrow
+                fabIcon.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
+                fabTooltip.textContent = 'Back to top';
+                fab.setAttribute('data-dir', 'top');
+            } else {
+                // Show "go to bottom" arrow
+                fabIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+                fabTooltip.textContent = 'Jump to bottom';
+                fab.setAttribute('data-dir', 'bottom');
+            }
+        }
+
+        fab.addEventListener('click', function () {
+            const dir = fab.getAttribute('data-dir');
+            if (dir === 'top') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+            }
+        });
+
+        window.addEventListener('scroll', updateFab, { passive: true });
+        updateFab();
+    })();
 </script>
 </body>
 </html>

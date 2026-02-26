@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Dashboard' }} — HuruLearn Admin</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/logo.svg">
+    <meta name="theme-color" content="#1e1b4b">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -182,7 +186,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
     <a href="{{ route('admin.dashboard') }}" class="sidebar-logo">
-        <div class="sidebar-logo-icon">H</div>
+        <img src="/logo.svg" alt="Logo" style="width: 36px; height: 36px;">
         <div>
             <div class="sidebar-logo-text">HuruLearn</div>
             <div class="sidebar-logo-sub">Admin Panel</div>
@@ -220,7 +224,15 @@
         <span class="topbar-title">{{ $title ?? 'Dashboard' }}</span>
     </div>
     <div class="topbar-right">
-        <div class="topbar-badge">Live SMS Active</div>
+        @php $aiEnabled = \App\Models\SystemSetting::where('key', 'ai_enabled')->value('value') ?? '1'; @endphp
+        @if($aiEnabled == '1')
+            <div class="topbar-badge">Live SMS Active</div>
+        @else
+            <div class="topbar-badge" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); color: #fca5a5;">
+                <style>.topbar-badge::before { display: none; }</style>
+                <span>⏸️</span> AI Paused
+            </div>
+        @endif
     </div>
 </div>
 
@@ -241,7 +253,12 @@
     </div><!-- /main-content -->
 
     <footer class="admin-footer">
-        &copy; {{ date('Y') }} HuruLearn by Huru Digital Co. Ltd. &mdash; AI SMS Education Platform
+        <div>&copy; {{ date('Y') }} HuruLearn by Huru Digital Co. Ltd. &mdash; AI SMS Education Platform</div>
+        <div style="margin-top: 0.5rem; display: flex; justify-content: center; gap: 1rem;">
+            <a href="{{ route('legal.terms') }}" style="color: var(--gray-600); text-decoration: none;">Terms & Conditions</a>
+            <span>&bull;</span>
+            <a href="{{ route('legal.privacy') }}" style="color: var(--gray-600); text-decoration: none;">Privacy Policy</a>
+        </div>
     </footer>
 
 </div><!-- /main-wrapper -->
@@ -250,6 +267,17 @@
     const menuBtn = document.getElementById('mobileMenuBtn');
     const sidebar = document.getElementById('sidebar');
     if (menuBtn) menuBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+</script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').then((reg) => {
+                console.log('ServiceWorker registration successful');
+            }).catch((err) => {
+                console.log('ServiceWorker registration failed:', err);
+            });
+        });
+    }
 </script>
 </body>
 </html>

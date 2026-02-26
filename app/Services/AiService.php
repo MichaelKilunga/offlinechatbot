@@ -54,8 +54,19 @@ class AiService
 
             $data = $response->json();
             
+            $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+            $finishReason = $data['candidates'][0]['finishReason'] ?? null;
+
+            if (!$text && $finishReason === 'SAFETY') {
+                return [
+                    'text' => 'BANNED_CONTENT_DETECTED',
+                    'tokens' => $data['usageMetadata'] ?? null,
+                    'model' => 'gemini-2.5-flash'
+                ];
+            }
+
             return [
-                'text' => trim($data['candidates'][0]['content']['parts'][0]['text'] ?? 'Samahani, sikuelewa.'),
+                'text' => trim($text ?? 'Samahani, sikuelewa.'),
                 'tokens' => $data['usageMetadata'] ?? null,
                 'model' => 'gemini-2.5-flash'
             ];
