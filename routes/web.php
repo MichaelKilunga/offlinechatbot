@@ -6,15 +6,42 @@ use App\Http\Controllers\Admin\CurriculumController;
 use App\Http\Controllers\Admin\PromptTemplateController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\WebChatController;
+use App\Http\Controllers\CommunityController;
 use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $communityPosts = \App\Models\CommunityPost::where('is_approved', true)
+        ->whereHas('thread', function($query) {
+            $query->where('slug', 'general-advice');
+        })
+        ->with('user')
+        ->latest()
+        ->take(6)
+        ->get();
+    return view('welcome', compact('communityPosts'));
+})->name('welcome');
+
+// Web Chatbot Routes
+Route::get('/chat', [WebChatController::class, 'index'])->name('chat.index');
+Route::post('/chat/login', [WebChatController::class, 'login'])->name('chat.login');
+Route::get('/chat/messages', [WebChatController::class, 'getMessages'])->name('chat.messages');
+Route::post('/chat/send', [WebChatController::class, 'sendMessage'])->name('chat.send');
+Route::post('/chat/logout', [WebChatController::class, 'logout'])->name('chat.logout');
 
 // Legal Pages
 Route::view('/terms-and-conditions', 'legal.terms')->name('legal.terms');
 Route::view('/privacy-policy', 'legal.privacy')->name('legal.privacy');
+
+// Community Routes
+Route::prefix('community')->name('community.')->group(function () {
+    Route::get('/', [CommunityController::class, 'index'])->name('index');
+    Route::post('/threads', [CommunityController::class, 'storeThread'])->name('threads.store');
+    Route::get('/threads/{thread:slug}', [CommunityController::class, 'show'])->name('show');
+    Route::post('/threads/{thread:slug}/posts', [CommunityController::class, 'storePost'])->name('posts.store');
+    Route::post('/threads/{thread:slug}/join', [CommunityController::class, 'join'])->name('join');
+    Route::post('/threads/{thread:slug}/leave', [CommunityController::class, 'leave'])->name('leave');
+});
 
 // Landing page contact / subscribe / partner forms
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

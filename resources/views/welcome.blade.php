@@ -635,6 +635,22 @@
         }
         #sms-fab .sms-fab-tooltip strong { display: block; color: #fff; font-size: .78rem; }
         #sms-fab:hover .sms-fab-tooltip { opacity: 1; }
+
+        /* ── WEB CHAT FAB TOOLTIP ── */
+        .web-chat-fab-tooltip {
+            position: absolute; left: 68px; top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10,8,32,0.94);
+            border: 1px solid rgba(245,158,11,0.4);
+            color: #fcd34d; font-size: .72rem; font-weight: 600;
+            padding: .4rem 1rem; border-radius: 8px;
+            white-space: nowrap; pointer-events: none;
+            opacity: 0; transition: opacity .2s ease; line-height: 1.6;
+            z-index: 9002;
+        }
+        .web-chat-fab-tooltip strong { display: block; color: #fff; font-size: .78rem; }
+        #web-chat-fab:hover .web-chat-fab-tooltip { opacity: 1; }
+
         @keyframes smsFabPulse {
             0%, 100% { box-shadow: 0 6px 28px rgba(20,184,166,0.5), 0 0 0 0 rgba(20,184,166,0.3); }
             50% { box-shadow: 0 6px 28px rgba(20,184,166,0.5), 0 0 0 14px rgba(20,184,166,0); }
@@ -677,11 +693,8 @@
         <span class="nav-logo-text">HuruLearn</span>
     </a>
     <ul class="nav-links" role="list">
-        <li><a href="#about">About</a></li>
-        <li><a href="#solution">Solution</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
-        <li><a href="#team">Team</a></li>
+        <li><a href="{{ route('community.index') }}">Community</a></li>
+        <li><a href="{{ route('chat.index') }}" style="color:var(--blue-light); border:1px solid rgba(59,130,246,0.3); padding:.4rem .8rem; border-radius:6px;">💬 Chat AI</a></li>
         <li><a href="#sponsors" class="nav-cta">Become a Partner</a></li>
     </ul>
     <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0" aria-expanded="false">
@@ -702,8 +715,8 @@
                 HuruLearn is an AI-powered learning platform that delivers curriculum-aligned answers through basic SMS — no internet, no smartphone required. Just knowledge, instantly.
             </p>
             <div class="hero-actions">
-                <a href="#solution" class="btn-primary">✦ See How It Works</a>
-                <a href="#sponsors" class="btn-outline">Support the Mission →</a>
+                <a href="{{ route('chat.index') }}" class="btn-primary" style="background:linear-gradient(135deg, var(--blue), #1d4ed8); box-shadow:0 4px 20px rgba(59,130,246,0.3);">✦ Ask AI Questions</a>
+                <a href="#solution" class="btn-outline">How It Works</a>
             </div>
             <div class="hero-stats">
                 <div class="stat">
@@ -957,6 +970,40 @@
                     <p>Analyze pilot results, iterate on the product, expand to additional subjects, languages, and partner with schools, NGOs, and government bodies for national rollout.</p>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- COMMUNITY VOICES -->
+<section class="bg-dark" id="community" style="background: radial-gradient(circle at 10% 20%, rgba(20,184,166,0.05) 0%, transparent 40%);">
+    <div class="section-inner">
+        <div class="reveal">
+            <p class="section-tag">Community Voices</p>
+            <h2 class="section-title">What Our Learners<br>Are Saying</h2>
+            <p class="section-desc">Join thousands of students and teachers discussing, learning, and sharing advice in our offline-first community hub.</p>
+        </div>
+        
+        <div class="problem-grid reveal" style="margin-top:3rem;">
+            @forelse($communityPosts as $post)
+            <div class="problem-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+                <p style="font-style:italic; font-size:.95rem; line-height:1.7; color:var(--gray-200); margin-bottom:1.5rem;">"{{ $post->content }}"</p>
+                <div style="display:flex; align-items:center; gap:.8rem;">
+                    <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg, var(--teal), var(--blue)); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.75rem;">{{ strtoupper(substr($post->user->name ?? $post->user->phone_number, 0, 1)) }}</div>
+                    <div>
+                        <div style="font-size:.85rem; font-weight:600;">{{ $post->user->name ?? 'Student' }}</div>
+                        <div style="font-size:.7rem; color:var(--gray-400);">{{ $post->created_at->diffForHumans() }}</div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="problem-card" style="grid-column: 1 / -1; text-align:center;">
+                <p>Be the first to share your thoughts! Join our community.</p>
+            </div>
+            @endforelse
+        </div>
+
+        <div style="text-align:center; margin-top:3rem;" class="reveal">
+            <a href="{{ route('community.index') }}" class="btn-primary" style="background:linear-gradient(135deg, var(--teal), #0d9488);">Explore Community Hub</a>
         </div>
     </div>
 </section>
@@ -1253,7 +1300,24 @@
     <span class="fab-tooltip" id="fab-tooltip">Back to top</span>
 </button>
 
-<!-- SMS FLOATING BUTTON -->
+<!-- WEB CHAT FLOATING BUTTON -->
+<a id="web-chat-fab"
+   href="{{ route('chat.index') }}"
+   aria-label="Chat with AI"
+   title="Chat with AI"
+   style="position:fixed; bottom:2rem; left:6.5rem; z-index:9001; width:58px; height:58px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg, #f59e0b, #e67e22); box-shadow:0 6px 28px rgba(245,158,11,0.5); text-decoration:none; transition:transform .25s ease;">
+    <svg viewBox="0 0 24 24" style="width:26px; height:26px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round;">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="web-chat-fab-tooltip" role="tooltip">
+        <strong>Chat with AI</strong>
+        Instant Web Tutoring
+    </span>
+</a>
+<style>
+    #web-chat-fab:hover { transform: scale(1.13) translateY(-4px); box-shadow: 0 14px 40px rgba(245,158,11,0.65); }
+</style>
+
 <a id="sms-fab"
    href="sms:15054?body=HURU%20"
    aria-label="Send us an SMS"

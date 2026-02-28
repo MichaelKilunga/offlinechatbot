@@ -66,6 +66,16 @@
 
                     <div class="form-group">
                         <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
+                            <span style="font-size:1.2rem;">💬</span> Web Chat Message History Limit
+                        </label>
+                        <input type="number" name="web_chat_limit" class="form-input"
+                                value="{{ $settings['web_chat_limit'] ?? 4 }}"
+                                min="1" max="50">
+                        <div class="form-hint">Controls how many previous messages are loaded in the web chatbot interface for context and display.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
                             <span style="font-size:1.2rem;">⚙️</span> Max Response Tokens (API Cap)
                         </label>
                         <input type="number" name="ai_max_tokens" class="form-input"

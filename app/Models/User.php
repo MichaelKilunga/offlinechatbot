@@ -54,4 +54,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+    public function communityMemberships()
+    {
+        return $this->hasMany(CommunityMember::class);
+    }
+
+    public function joinedThreads()
+    {
+        return $this->belongsToMany(CommunityThread::class, 'community_members')
+            ->withPivot('role', 'joined_at')
+            ->withTimestamps();
+    }
+
+    public function createdThreads()
+    {
+        return $this->hasMany(CommunityThread::class, 'creator_id');
+    }
+
+    public function communityPosts()
+    {
+        return $this->hasMany(CommunityPost::class);
+    }
 }
