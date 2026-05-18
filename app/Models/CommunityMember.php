@@ -14,12 +14,10 @@ class CommunityMember extends Model
         'user_id',
         'role',
         'joined_at',
-        'last_read_at',
     ];
 
     protected $casts = [
         'joined_at' => 'datetime',
-        'last_read_at' => 'datetime',
     ];
 
     public function thread()

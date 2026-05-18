@@ -10,7 +10,6 @@ use App\Models\SystemSetting;
 use App\Services\AiService;
 use App\Services\LanguageDetector;
 use App\Services\ModerationService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class WebChatController extends Controller
@@ -38,12 +37,8 @@ class WebChatController extends Controller
             }
         }
 
-        $user = User::firstOrCreate(['phone_number' => $phoneNumber], [
-            'name' => 'User ' . substr($phoneNumber, -4),
-            'role' => 'user',
-        ]);
+        $user = User::firstOrCreate(['phone_number' => $phoneNumber]);
 
-        Auth::login($user, true);
         session(['chat_user_id' => $user->id]);
 
         return response()->json(['status' => 'success', 'user' => $user]);
@@ -51,7 +46,7 @@ class WebChatController extends Controller
 
     public function getMessages(Request $request)
     {
-        $userId = Auth::id();
+        $userId = session('chat_user_id');
         if (!$userId) {
             return response()->json(['status' => 'error', 'message' => 'Unauthorized'], 401);
         }
@@ -82,7 +77,7 @@ class WebChatController extends Controller
 
     public function sendMessage(Request $request, AiService $aiService, ModerationService $moderationService)
     {
-        $userId = Auth::id();
+        $userId = session('chat_user_id');
         if (!$userId) {
             return response()->json(['status' => 'error', 'message' => 'Unauthorized'], 401);
         }
@@ -206,9 +201,7 @@ class WebChatController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-        session()->invalidate();
-        session()->regenerateToken();
+        session()->forget('chat_user_id');
         return response()->json(['status' => 'success']);
     }
 }
