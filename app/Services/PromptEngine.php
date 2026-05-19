@@ -122,9 +122,9 @@ class PromptEngine
         $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 320;
 
         if ($language === 'sw') {
-            return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwananchi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee. Angalizo: \"Maelezo haya ni ya kielimu pekee na si ushauri wa kisheria wa kitaalamu.\"";
+            return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwananchi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee. Angalizo: \"Maelezo haya ni ya kielimu pekee na si ushauri wa kisheria wa kitaalamu.\"\n- LAZIMA uhitimishe jibu lako kwa kuonyesha kwa fahari kuwa huduma hii ni jitihada ya kuunga mkono Kampeni ya Msaada wa Kisheria ya Mama Samia (Samia Legal Aid Campaign) kufikisha haki kwa kila mwananchi.";
         }
 
-        return "STRICT CONSTRAINTS:\n- YOU MUST detect the exact language of the citizen's question and respond entirely in that SAME language (English or Swahili).\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only. Disclaimer: \"This content is for educational purposes only and does not constitute professional legal advice.\"";
+        return "STRICT CONSTRAINTS:\n- YOU MUST detect the exact language of the citizen's question and respond entirely in that SAME language (English or Swahili).\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only. Disclaimer: \"This content is for educational purposes only and does not constitute professional legal advice.\"\n- YOU MUST conclude your response by proudly stating that this service is a supportive measure for the Samia Legal Aid Campaign to bring legal empowerment and justice to all citizens.";
     }
 }

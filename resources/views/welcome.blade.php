@@ -706,8 +706,8 @@
 <section class="hero" id="hero" aria-labelledby="hero-heading">
     <div class="hero-inner">
         <div>
-            <div class="hero-badge">
-                <span></span> Live on Africa's Talking SMS Network
+            <div class="hero-badge" style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.35); color: var(--amber-light); max-width: max-content; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <span style="background: var(--amber); animation: pulse 2s infinite; border-radius: 50%; width: 7px; height: 7px; display: inline-block;"></span> Supporting Samia Legal Aid Campaign (Tanzania)
             </div>
             <h1 id="hero-heading">Legal Education for Every<br><span class="highlight">Tanzanian Citizen</span><br>via Simple SMS</h1>
             <p class="hero-desc">
@@ -809,6 +809,44 @@
                 <div class="vm-icon">✊</div>
                 <h3>Our Mission</h3>
                 <p>To bridge the justice gap by delivering AI-powered, contextually accurate legal education through basic SMS. We are committed to making civic and legal knowledge accessible in English and Swahili — aligned with SDG 16: Peace, Justice, and Strong Institutions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- STRATEGIC ALIGNMENT: SAMIA LEGAL AID CAMPAIGN -->
+<section style="background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(30,27,75,0.6) 100%); border-top: 1px solid rgba(245,158,11,0.15); border-bottom: 1px solid rgba(245,158,11,0.15);" id="samia-campaign">
+    <div class="section-inner">
+        <div class="reveal" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center;">
+            <div>
+                <p class="section-tag" style="color: var(--amber);">Jitihada za Kiserikali / National Initiative</p>
+                <h2 class="section-title" style="font-family: 'Space Grotesk', sans-serif;">Proud Support Measure for<br><span class="highlight" style="background: linear-gradient(135deg, var(--amber), #fcd34d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Samia Legal Aid Campaign</span></h2>
+                <p class="section-desc" style="margin-bottom: 1.5rem; color: var(--gray-200);">
+                    Kampeni ya Msaada wa Kisheria ya Mama Samia (Samia Legal Aid Campaign) was launched by the Government of Tanzania to ensure access to justice and legal empowerment for women, children, and vulnerable groups across all regions.
+                </p>
+                <p class="section-desc" style="color: var(--gray-400);">
+                    <strong>HuruLearn</strong> serves as a robust digital booster for this campaign. By using AI over basic, offline SMS, we bridge the communication gap, allowing rural citizens and those without internet or smartphones to receive real-time constitutional rights education and legal aid guidance in Swahili and English, completely offline.
+                </p>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(245,158,11,0.25); border-radius: 20px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+                <div style="position: absolute; top: -20px; right: -20px; font-size: 8rem; opacity: 0.05; pointer-events: none;">⚖️</div>
+                <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--amber-light); display: flex; align-items: center; gap: 0.5rem;">
+                    🇹🇿 Mchango Wetu / Our Role
+                </h3>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem; font-size: 0.9rem; color: var(--gray-300);">
+                    <li style="display: flex; gap: 0.7rem;">
+                        <span style="color: var(--amber); font-weight: bold;">✔</span>
+                        <div><strong>Kufikia Kila Kijiji (Last-Mile Delivery):</strong> Wanaotumia simu za tochi sasa wanapata elimu ya sheria popote nchini bila intaneti.</div>
+                    </li>
+                    <li style="display: flex; gap: 0.7rem;">
+                        <span style="color: var(--amber); font-weight: bold;">✔</span>
+                        <div><strong>Usaidizi kwa Kiswahili na Kiingereza:</strong> AI inawajibu wananchi kwa Kiswahili fasaha cha kisheria na kirafiki.</div>
+                    </li>
+                    <li style="display: flex; gap: 0.7rem;">
+                        <span style="color: var(--amber); font-weight: bold;">✔</span>
+                        <div><strong>Kupunguza Msongamano Mahakamani:</strong> Kwa kuelimisha haki na wajibu kabla ya migogoro kuanza, tunasaidia kupunguza msongamano.</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
