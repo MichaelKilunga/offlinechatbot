@@ -167,7 +167,7 @@ class PromptEngine
                    "- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n" .
                    "- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee.\n" .
                    "- LAZIMA uandike jibu lako kwa maandishi ya kawaida (plain text) pekee. USITUMIE alama za asterisks au nyota (*) hata kidogo (kama vile **bold** au *italics* au * orodha za bullet). Hakikisha hakuna herufi yoyote ya nyota (*) katika jibu lako lote.\n" .
-                   "- LAZIMA uhitimishe jibu lako kwa kuweka saini fupi sana mwishoni kabisa: \"Kampeni ya Msaada wa Kisheria ya Mama Samia.\"\n" .
+                   "- LAZIMA uhitimishe jibu lako kwa kuweka saini fupi sana mwishoni kabisa: \"Kampeni ya Msaada wa Kisheria ya Mama Samia(Samia Legal Aid Campaign).\"\n" .
                    "- IKIWA mwananchi ametaja mahali alipo (kama vile mkoa, wilaya, kata au mtaa, mfano Sinza Mori au Kahama Shinyanga) na anahitaji msaada wa kisheria: LAZIMA utambue eneo lake na kutoa kipaumbele cha kwanza kabisa kwa 'WATOA HUDUMA WA KARIBU' waliotajwa kwenye muktadha (context) kuwa wako karibu naye. Taja majina yao, anwani zao, na simu/barua pepe zao waziwazi mwanzoni mwa jibu lako.\n" .
                    "- IKIWA hakuna watoa huduma wa karibu waliotajwa kwenye muktadha au mwananchi anauliza anwani za kitaifa kwa ujumla, utataja anwani hizi za kitaifa za msaada wa ziada:\n" .
                    "  * Ofisi za Msaada wa Kisheria za Mama Samia (Wizara ya Katiba na Sheria - MoCLA): Dodoma (Mji wa Serikali Mtumba) au madawati yao ya mikoa.\n" .
