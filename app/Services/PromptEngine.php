@@ -73,11 +73,27 @@ class PromptEngine
      */
     private function formatContext(?string $context, string $lang): string
     {
-        if ($context) return $context;
+        $govFactSheet = $lang === 'sw' 
+            ? "\n\nMAELEZO RASMI YA VIONGOZI NA MAWASILIANO YA KISHERIA TANZANIA (Tumia haya pekee kujibu maswali ya viongozi au mawasiliano kwa usahihi kabisa):\n" .
+              "- Mwanasheria Mkuu wa Serikali (Attorney General): Mhe. Hamza S. Johari (Aliteuliwa na Rais Samia Suluhu Hassan mnamo Novemba 2025).\n" .
+              "- Jaji Mkuu wa Tanzania (Chief Justice): Mhe. Prof. Ibrahim Hamis Juma.\n" .
+              "- Waziri wa Katiba na Sheria (MoCLA): Mhe. Dkt. Juma Zuberi Homera (Aliteuliwa mnamo Novemba 2025).\n" .
+              "- Naibu Mwanasheria Mkuu (Deputy Attorney General): Mhe. Dkt. Ally Possi.\n" .
+              "- Wakili Mkuu wa Serikali (Solicitor General): Mhe. Dkt. Boniface Luhende.\n" .
+              "- Anwani ya Ofisi ya Mwanasheria Mkuu wa Serikali (OAG): Mtumba Government City (Mji wa Serikali Mtumba), S.L.P. 11492, Dodoma. Simu: +255 26 296 3647. Barua pepe: info@oag.go.tz. (Makao Makuu yamehamia Dodoma)."
+            : "\n\nOFFICIAL TANZANIAN LEGAL LEADERS & CONTACT INFORMATION (Use this to answer related queries with 100% accuracy):\n" .
+              "- Attorney General: Hon. Hamza S. Johari (Appointed by President Samia Suluhu Hassan in November 2025).\n" .
+              "- Chief Justice of Tanzania: Hon. Prof. Ibrahim Hamis Juma.\n" .
+              "- Minister for Constitutional and Legal Affairs (MoCLA): Hon. Dr. Juma Zuberi Homera (Appointed in November 2025).\n" .
+              "- Deputy Attorney General: Hon. Dr. Ally Possi.\n" .
+              "- Solicitor General: Hon. Dr. Boniface Luhende.\n" .
+              "- Office of the Attorney General (OAG) Address: Mtumba Government City, P.O. Box 11492, Dodoma. Phone: +255 26 296 3647. Email: info@oag.go.tz. (Headquarters moved to Dodoma).";
 
-        return $lang === 'sw' 
+        $baseContext = $context ?: ($lang === 'sw' 
             ? "Muktadha maalum wa kisheria haupatikani. Tumia maarifa yako ya jumla ya kisheria kulingana na sheria na katiba ya Tanzania." 
-            : "No specific legal context found. Use your general legal knowledge based on the laws and constitution of Tanzania.";
+            : "No specific legal context found. Use your general legal knowledge based on the laws and constitution of Tanzania.");
+
+        return $baseContext . $govFactSheet;
     }
 
     /**
