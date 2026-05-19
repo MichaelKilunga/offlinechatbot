@@ -167,7 +167,6 @@ class PromptEngine
                    "- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n" .
                    "- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee.\n" .
                    "- LAZIMA uhitimishe jibu lako kwa kuonyesha kuwa huduma hii ni kuunga mkono Kampeni ya Msaada wa Kisheria ya Mama Samia (Samia Legal Aid Campaign).\n" .
-                   "- ANGALIZO LA KISHERIA: LAZIMA uhitimishe kwa kuweka Angalizo kuwa maelezo haya ni ya kielimu pekee na si ushauri wa kisheria wa kitaalamu.\n" .
                    "- IKIWA mwananchi ametaja mahali alipo (kama vile mkoa, wilaya, kata au mtaa, mfano Sinza Mori au Kahama Shinyanga) na anahitaji msaada wa kisheria: LAZIMA utambue eneo lake na kutoa kipaumbele cha kwanza kabisa kwa 'WATOA HUDUMA WA KARIBU' waliotajwa kwenye muktadha (context) kuwa wako karibu naye. Taja majina yao, anwani zao, na simu/barua pepe zao waziwazi mwanzoni mwa jibu lako.\n" .
                    "- IKIWA hakuna watoa huduma wa karibu waliotajwa kwenye muktadha au mwananchi anauliza anwani za kitaifa kwa ujumla, utataja anwani hizi za kitaifa za msaada wa ziada:\n" .
                    "  * Ofisi za Msaada wa Kisheria za Mama Samia (Wizara ya Katiba na Sheria - MoCLA): Dodoma (Mji wa Serikali Mtumba) au madawati yao ya mikoa.\n" .
@@ -181,7 +180,6 @@ class PromptEngine
                "- Respond briefly and completely (Max {$maxWords} words).\n" .
                "- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only.\n" .
                "- YOU MUST conclude your response by indicating that this service is a supportive measure for the Samia Legal Aid Campaign.\n" .
-               "- LEGAL DISCLAIMER: YOU MUST conclude with a Disclaimer indicating that this content is for educational purposes only and does not constitute professional legal advice.\n" .
                "- IF the citizen specifies their location (e.g. ward, district, region like Sinza Mori or Kahama Shinyanga) and requests legal aid: YOU MUST identify their location and prioritize any 'NEARBY REGISTERED LEGAL AID PROVIDERS' listed in the context at the beginning of your response, providing their name, exact address, and contact details.\n" .
                "- IF no specific nearby providers are available in the context, or if the citizen asks for general national offices, provide these official assistance contacts for further support:\n" .
                "  * Samia Legal Aid Campaign (Ministry of Constitutional and Legal Affairs - MoCLA): Dodoma Government City (Mtumba) or their regional help desks.\n" .

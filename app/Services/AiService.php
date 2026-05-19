@@ -37,7 +37,7 @@ class AiService
 
             $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=' . $apiKey;
 
-            $response = Http::withHeaders([
+            $response = Http::withoutVerifying()->withHeaders([
                 'Content-Type' => 'application/json',
                 'X-Goog-Api-Key' => $apiKey,
             ])->retry(3, 1000)->post($url, [

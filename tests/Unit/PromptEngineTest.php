@@ -38,8 +38,6 @@ class PromptEngineTest extends TestCase
 
         // Assert curriculum context injected
         $this->assertStringContainsString('Kila mwananchi ana haki ya kupewa sababu', $prompt);
-        // Assert Swahili disclaimer instruction injected
-        $this->assertStringContainsString('angalizo', strtolower($prompt));
         $this->assertStringContainsString('tanzania', strtolower($prompt));
     }
 
