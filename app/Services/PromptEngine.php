@@ -141,7 +141,7 @@ class PromptEngine
             return "MASHARTI MUHIMU:\n" .
                    "- LAZIMA utambue lugha aliyotumia mwananchi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n" .
                    "- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n" .
-                   "- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee. Angalizo: \"Maelezo haya ni ya kielimu pekee na si ushauri wa kisheria wa kitaalamu.\"\n" .
+                   "- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee.\n" .
                    "- LAZIMA uhitimishe jibu lako kwa kuonyesha kuwa huduma hii ni kuunga mkono Kampeni ya Msaada wa Kisheria ya Mama Samia (Samia Legal Aid Campaign).\n" .
                    "- IKIWA mwananchi ameuliza moja kwa moja anwani za ofisi, simu za msaada, au kama suala lake ni la dharura sana/zito linalohitaji wakili wa ana kwa ana (kama vile ugomvi mkubwa wa ardhi, ukatili wa kijinsia, au ukamataji haramu): LAZIMA utaje anwani hizi kwa ajili ya msaada wa ziada:\n" .
                    "  * Ofisi za Msaada wa Kisheria za Mama Samia (Wizara ya Katiba na Sheria - MoCLA): Dodoma (Mji wa Serikali Mtumba) au madawati yao ya mikoa.\n" .
@@ -153,7 +153,7 @@ class PromptEngine
         return "STRICT CONSTRAINTS:\n" .
                "- YOU MUST detect the exact language of the citizen's question and respond entirely in that SAME language (English or Swahili).\n" .
                "- Respond briefly and completely (Max {$maxWords} words).\n" .
-               "- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only. Disclaimer: \"This content is for educational purposes only and does not constitute professional legal advice.\"\n" .
+               "- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only.\n" .
                "- YOU MUST conclude your response by indicating that this service is a supportive measure for the Samia Legal Aid Campaign.\n" .
                "- IF AND ONLY IF the citizen specifically asks for office addresses, contact numbers, or in critical/urgent situations requiring immediate real-world legal intervention (e.g. violent abuse, threat of physical eviction, active arrest): YOU MUST provide these official assistance contacts for further support:\n" .
                "  * Samia Legal Aid Campaign (Ministry of Constitutional and Legal Affairs - MoCLA): Dodoma Government City (Mtumba) or their regional help desks.\n" .
