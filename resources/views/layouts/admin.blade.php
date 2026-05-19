@@ -203,7 +203,7 @@
         </a>
         <div class="sidebar-section">Content</div>
         <a href="{{ route('admin.curriculum.index') }}" class="sidebar-link {{ request()->routeIs('admin.curriculum.*') ? 'active' : '' }}">
-            <span class="sidebar-icon">📚</span> Curriculum
+            <span class="sidebar-icon">⚖️</span> Legal Database
         </a>
         <a href="{{ route('admin.templates.index') }}" class="sidebar-link {{ request()->routeIs('admin.templates.*') ? 'active' : '' }}">
             <span class="sidebar-icon">🤖</span> AI Templates

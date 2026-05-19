@@ -683,7 +683,7 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            location.reload();
+            window.location.href = '/';
         });
 
         function showChat(messages = [], isSearchResult = false) {

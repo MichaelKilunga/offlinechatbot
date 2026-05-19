@@ -120,7 +120,7 @@
                     </li>
                     <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
                         <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        Curriculum content for other languages is still searchable when keywords match.
+                        Legal and civic content for other languages is still searchable when keywords match.
                     </li>
                     <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
                         <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>

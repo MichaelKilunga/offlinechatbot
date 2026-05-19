@@ -128,6 +128,6 @@ class CurriculumController extends Controller
     {
         Cache::forget("curriculum_active_{$curriculum->language}");
         $curriculum->delete();
-        return redirect()->back()->with('success', 'Curriculum deleted.');
+        return redirect()->back()->with('success', 'Legal database entry deleted.');
     }
 }

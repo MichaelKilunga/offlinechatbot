@@ -69,7 +69,7 @@
                                 <td style="color:var(--gray-500); font-size:.8rem;">{{ $item->tags ?? '—' }}</td>
                                 <td>
                                     <form action="{{ route('admin.curriculum.destroy', $item) }}" method="POST"
-                                          onsubmit="return confirm('Delete this curriculum entry?')">
+                                          onsubmit="return confirm('Delete this legal database entry?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">🗑 Delete</button>
