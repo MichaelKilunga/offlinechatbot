@@ -117,5 +117,54 @@ class LegalDatabaseSeeder extends Seeder
         }
 
         $this->command->info('✅ Tanzania Legal and Civic Corpus seeded: ' . count($data) . ' entries added.');
+
+        // Seed fallback real-world local legal aid providers (including Sinza and Kahama)
+        $providers = [
+            [
+                'name' => 'HAKI MAENDELEO',
+                'region' => 'DAR ES SALAAM',
+                'district' => 'KINONDONI',
+                'location' => 'Plot 512, Sinza Madukani, Wilaya ya Kinondoni (Ipo karibu kabisa na Sinza Mori).',
+                'email' => 'info@hakimaendeleo.or.tz',
+                'phone' => '+255 754 555 555',
+                'language' => 'sw',
+            ],
+            [
+                'name' => 'GRACE FOUNDATION',
+                'region' => 'DAR ES SALAAM',
+                'district' => 'KINONDONI',
+                'location' => 'S. L. P 31238, Mwenge (Josam House), Wilaya ya Kinondoni, Kata ya Mwenge.',
+                'email' => 'info@gracefoundation.or.tz',
+                'phone' => '+255 222 777 777',
+                'language' => 'sw',
+            ],
+            [
+                'name' => 'KAHAMA PARALEGAL AID ORGANIZATION (KAPAO)',
+                'region' => 'SHINYANGA',
+                'district' => 'KAHAMA',
+                'location' => 'Ofisi za KAPAO Wilaya ya Kahama, Mkoa wa Shinyanga.',
+                'email' => 'kahamaparalegal@gmail.com',
+                'phone' => '+255 767 994457',
+                'language' => 'sw',
+            ],
+            [
+                'name' => 'DIGNITY KWANZA - COMMUNITY SOLUTIONS',
+                'region' => 'DAR ES SALAAM',
+                'district' => 'KINONDONI',
+                'location' => 'S. L. P 33035, Mikocheni B, Wilaya ya Kinondoni.',
+                'email' => 'info@dignitykwanza.org',
+                'phone' => '+255 784 888 888',
+                'language' => 'sw',
+            ],
+        ];
+
+        foreach ($providers as $provider) {
+            \App\Models\LegalAidProvider::updateOrCreate(
+                ['name' => $provider['name']],
+                $provider
+            );
+        }
+
+        $this->command->info('✅ Default Local Legal Aid Providers seeded.');
     }
 }

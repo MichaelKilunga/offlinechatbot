@@ -42,4 +42,36 @@ class PromptEngineTest extends TestCase
         $this->assertStringContainsString('angalizo', strtolower($prompt));
         $this->assertStringContainsString('tanzania', strtolower($prompt));
     }
+
+    public function test_prompt_engine_retrieves_localized_context_for_location_queries()
+    {
+        // 1. Create a dummy prompt template
+        PromptTemplate::create([
+            'name' => 'Default Swahili',
+            'language' => 'sw',
+            'template' => 'Wewe ni msaidizi wa kisheria nchini Tanzania. Mwongozo: {context}. Swali: {user_input}',
+            'is_active' => true,
+        ]);
+
+        // 2. Create a local provider
+        \App\Models\LegalAidProvider::create([
+            'name' => 'KAHAMA PARALEGAL AID ORGANIZATION (KAPAO)',
+            'region' => 'SHINYANGA',
+            'district' => 'KAHAMA',
+            'location' => 'Wilaya ya Kahama, Shinyanga.',
+            'phone' => '+255 767 994457',
+            'language' => 'sw',
+        ]);
+
+        $promptEngine = new PromptEngine();
+        
+        // Query from Kahama
+        $prompt = $promptEngine->build('naomba msaada wa kisheria nipo kahama shinyanga', 'sw');
+
+        // Assert that the local provider is dynamically injected into the context!
+        $this->assertStringContainsString('KAHAMA PARALEGAL AID ORGANIZATION', $prompt);
+        $this->assertStringContainsString('SHINYANGA', $prompt);
+        $this->assertStringContainsString('KAHAMA', $prompt);
+        $this->assertStringContainsString('+255 767 994457', $prompt);
+    }
 }
