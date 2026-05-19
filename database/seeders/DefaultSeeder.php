@@ -18,19 +18,19 @@ class DefaultSeeder extends Seeder
 
         // Templates
         \App\Models\PromptTemplate::updateOrCreate(['name' => 'Default Swahili'], [
-            'template' => "Wewe ni mwalimu msaidizi wa sekondari nchini Tanzania. Tumia maelezo haya ya ziada kama mwongozo: {context}. Jibu swali hili la mwanafunzi kwa ufupi na kwa lugha rahisi ya Kiswahili: {user_input}",
+            'template' => "Wewe ni msaidizi wa kisheria nchini Tanzania. Tumia maelezo haya ya ziada kama mwongozo: {context}. Jibu swali hili la mwananchi kuhusu sheria za Tanzania kwa ufupi na kwa lugha rahisi ya Kiswahili: {user_input}",
             'temperature' => 0.7,
-            'max_tokens' => 200,
-            'tone' => 'educational',
+            'max_tokens' => 300,
+            'tone' => 'legal_educational',
             'language' => 'sw',
             'is_active' => true,
         ]);
 
         \App\Models\PromptTemplate::updateOrCreate(['name' => 'Default English'], [
-            'template' => "You are a high school teaching assistant in Tanzania. Use this context as a guide: {context}. Answer the student's question briefly and in simple English: {user_input}",
+            'template' => "You are a legal assistant in Tanzania. Use this context as a guide: {context}. Answer the citizen's question about Tanzanian law briefly and in simple English: {user_input}",
             'temperature' => 0.7,
-            'max_tokens' => 200,
-            'tone' => 'educational',
+            'max_tokens' => 300,
+            'tone' => 'legal_educational',
             'language' => 'en',
             'is_active' => true,
         ]);

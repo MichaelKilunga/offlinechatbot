@@ -76,8 +76,8 @@ class PromptEngine
         if ($context) return $context;
 
         return $lang === 'sw' 
-            ? "Muktadha wa mtaala haupatikani. Tumia maarifa yako ya jumla ya kieleimu kulingana na mtaala wa Tanzania." 
-            : "No specific curriculum context found. Use your general educational knowledge based on the Tanzanian curriculum.";
+            ? "Muktadha maalum wa kisheria haupatikani. Tumia maarifa yako ya jumla ya kisheria kulingana na sheria na katiba ya Tanzania." 
+            : "No specific legal context found. Use your general legal knowledge based on the laws and constitution of Tanzania.";
     }
 
     /**
@@ -86,8 +86,8 @@ class PromptEngine
     private function getDefaultTemplate(string $lang): string
     {
         return $lang === 'sw' 
-            ? "Wewe ni mwalimu msaidizi. Muktadha: {context}. Swali la mwanafunzi: {user_input}" 
-            : "You are a teaching assistant. Context: {context}. Student Question: {user_input}";
+            ? "Wewe ni msaidizi wa kisheria nchini Tanzania. Muktadha wa kisheria: {context}. Swali la mwananchi: {user_input}" 
+            : "You are a legal assistant in Tanzania. Legal context: {context}. Citizen Question: {user_input}";
     }
 
     /**
@@ -122,9 +122,9 @@ class PromptEngine
         $maxWords = \App\Models\SystemSetting::where('key', 'ai_max_words')->value('value') ?? 320;
 
         if ($language === 'sw') {
-            return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwanafunzi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo ya kimasomo.";
+            return "MASHARTI MUHIMU:\n- LAZIMA utambue lugha aliyotumia mwananchi na ujibu kwa lugha HIYO HIYO aliyouliza (Kiswahili kama ameuliza kwa Kiswahili, Kiingereza kama ameuliza kwa Kiingereza).\n- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee. Angalizo: \"Maelezo haya ni ya kielimu pekee na si ushauri wa kisheria wa kitaalamu.\"";
         }
 
-        return "STRICT CONSTRAINTS:\n- YOU MUST detect the exact language of the student's question and respond entirely in that SAME language (English or Swahili).\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation.";
+        return "STRICT CONSTRAINTS:\n- YOU MUST detect the exact language of the citizen's question and respond entirely in that SAME language (English or Swahili).\n- Respond briefly and completely (Max {$maxWords} words).\n- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only. Disclaimer: \"This content is for educational purposes only and does not constitute professional legal advice.\"";
     }
 }

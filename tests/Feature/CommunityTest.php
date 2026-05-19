@@ -60,4 +60,27 @@ class CommunityTest extends TestCase
         $response->assertStatus(302);
         $this->assertDatabaseHas('community_posts', ['content' => 'Hello World']);
     }
+
+    public function test_unauthenticated_user_is_redirected_to_chat_with_redirect_param_for_index()
+    {
+        $response = $this->get(route('community.index'));
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('chat.index', ['redirect' => '/community']));
+        $response->assertSessionHas('error', 'Please login to access the community.');
+    }
+
+    public function test_unauthenticated_user_is_redirected_to_chat_with_redirect_param_for_show()
+    {
+        $thread = \App\Models\CommunityThread::create([
+            'title' => 'Sample Thread',
+            'slug' => 'sample-thread',
+            'is_private' => false,
+        ]);
+
+        $response = $this->get(route('community.show', $thread->slug));
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('chat.index', ['redirect' => '/community/threads/sample-thread']));
+    }
 }

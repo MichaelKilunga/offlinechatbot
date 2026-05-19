@@ -7,9 +7,9 @@
     {{-- ═══════════════════════════════════════════════════════
          PRIMARY SEO META
     ═══════════════════════════════════════════════════════ --}}
-    <title>HuruLearn – AI-Powered SMS Education for Every Student in Africa</title>
-    <meta name="description" content="HuruLearn delivers curriculum-aligned AI tutoring through basic SMS — no internet, no smartphone required. Serving students across Tanzania and sub-Saharan Africa. Text HURU to 15054.">
-    <meta name="keywords" content="SMS education Africa, AI tutoring Tanzania, offline learning, curriculum-aligned SMS, HuruLearn, Huru Digital, educational technology Africa, Kiswahili education, no internet learning, SDG 4 education">
+    <title>HuruLearn – AI-Powered SMS Legal Education for All Tanzanian Citizens</title>
+    <meta name="description" content="HuruLearn delivers legal education, rights awareness, and constitutional knowledge through basic SMS — no internet, no smartphone required. Empowering citizens across Tanzania. Text HURU to 15054.">
+    <meta name="keywords" content="SMS legal education, legal rights Tanzania, constitution Tanzania, offline learning, HuruLearn, Huru Digital, civic education, Kiswahili legal help, TanzLII, OSG Tanzania">
     <meta name="author" content="Huru Digital Co. Ltd.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -27,8 +27,8 @@
     ═══════════════════════════════════════════════════════ --}}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HuruLearn">
-    <meta property="og:title" content="HuruLearn – AI-Powered SMS Education for Every Student in Africa">
-    <meta property="og:description" content="Curriculum-aligned AI tutoring delivered via basic SMS. No internet. No smartphone. Just knowledge — instantly. Text HURU to 15054.">
+    <meta property="og:title" content="HuruLearn – AI-Powered SMS Legal Education for Tanzanian Citizens">
+    <meta property="og:description" content="Legal education, rights awareness, and constitutional knowledge delivered via basic SMS. No internet. No smartphone. Text HURU to 15054.">
     <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/">
     <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
     <meta property="og:image:width" content="1200">
@@ -83,11 +83,10 @@
             "width": 100,
             "height": 100
           },
-          "description": "Huru Digital Co. Ltd. builds AI-powered SMS education tools for students in Tanzania and sub-Saharan Africa.",
+          "description": "Huru Digital Co. Ltd. builds AI-powered SMS legal education tools for citizens in Tanzania.",
           "foundingDate": "2024",
           "areaServed": [
-            { "@type": "Country", "name": "Tanzania" },
-            { "@type": "Continent", "name": "Africa" }
+            { "@type": "Country", "name": "Tanzania" }
           ],
           "contactPoint": {
             "@type": "ContactPoint",
@@ -104,7 +103,7 @@
           "@id": "https://hurulearn.hurudigital.co.tz/#website",
           "url": "https://hurulearn.hurudigital.co.tz",
           "name": "HuruLearn",
-          "description": "AI-powered SMS education platform for students in Africa",
+          "description": "AI-powered SMS legal education platform for citizens in Tanzania",
           "publisher": { "@id": "https://hurulearn.hurudigital.co.tz/#organization" },
           "inLanguage": ["en", "sw"],
           "potentialAction": {
@@ -117,18 +116,18 @@
           "@type": "WebPage",
           "@id": "https://hurulearn.hurudigital.co.tz/#webpage",
           "url": "https://hurulearn.hurudigital.co.tz",
-          "name": "HuruLearn – AI-Powered SMS Education for Every Student in Africa",
-          "description": "HuruLearn delivers curriculum-aligned AI tutoring through basic SMS. No internet. No smartphone. Text HURU to 15054.",
+          "name": "HuruLearn – AI-Powered SMS Legal Education for All Tanzanian Citizens",
+          "description": "HuruLearn delivers legal education, rights awareness, and constitutional knowledge through basic SMS. No internet. No smartphone. Text HURU to 15054.",
           "isPartOf": { "@id": "https://hurulearn.hurudigital.co.tz/#website" },
           "about": { "@id": "https://hurulearn.hurudigital.co.tz/#organization" },
           "inLanguage": "en"
         },
         {
           "@type": "SoftwareApplication",
-          "name": "HuruLearn SMS Tutor",
+          "name": "HuruLearn SMS Law Assistant",
           "applicationCategory": "EducationalApplication",
           "operatingSystem": "Any GSM feature phone",
-          "description": "Send HURU followed by any curriculum question via SMS to get instant AI-generated, curriculum-aligned answers in English or Swahili.",
+          "description": "Send HURU followed by any legal or constitutional question via SMS to get instant AI-generated, legal guidance in English or Swahili.",
           "offers": {
             "@type": "Offer",
             "price": "0",
@@ -147,7 +146,7 @@
               "name": "How do I use HuruLearn?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Text HURU followed by your question to 15054 from any GSM mobile phone. No internet or smartphone is required. Example: HURU what is photosynthesis?"
+                "text": "Text HURU followed by your legal question to 15054 from any GSM mobile phone. No internet or smartphone is required. Example: HURU haki zangu ni zipi nikikamatwa?"
               }
             },
             {
@@ -163,7 +162,7 @@
               "name": "What languages does HuruLearn support?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "HuruLearn supports both English and Kiswahili, so students can ask questions and receive answers in their preferred language."
+                "text": "HuruLearn supports both English and Kiswahili, so citizens can ask questions and receive answers in their preferred language."
               }
             },
             {
@@ -710,12 +709,12 @@
             <div class="hero-badge">
                 <span></span> Live on Africa's Talking SMS Network
             </div>
-            <h1 id="hero-heading">Education for Every<br><span class="highlight">Student in Africa</span><br>via Simple SMS</h1>
+            <h1 id="hero-heading">Legal Education for Every<br><span class="highlight">Tanzanian Citizen</span><br>via Simple SMS</h1>
             <p class="hero-desc">
-                HuruLearn is an AI-powered learning platform that delivers curriculum-aligned answers through basic SMS — no internet, no smartphone required. Just knowledge, instantly.
+                HuruLearn is an AI-powered platform that delivers legal education, rights awareness, and constitutional guidance through basic SMS — no internet, no smartphone required. Just legal knowledge, instantly.
             </p>
             <div class="hero-actions">
-                <a href="{{ route('chat.index') }}" class="btn-primary" style="background:linear-gradient(135deg, var(--blue), #1d4ed8); box-shadow:0 4px 20px rgba(59,130,246,0.3);">✦ Ask AI Questions</a>
+                <a href="{{ route('chat.index') }}" class="btn-primary" style="background:linear-gradient(135deg, var(--blue), #1d4ed8); box-shadow:0 4px 20px rgba(59,130,246,0.3);">✦ Ask Legal Questions</a>
                 <a href="#solution" class="btn-outline">How It Works</a>
             </div>
             <div class="hero-stats">
@@ -725,7 +724,7 @@
                 </div>
                 <div class="stat">
                     <div class="stat-num">AI</div>
-                    <div class="stat-label">Curriculum-aligned answers</div>
+                    <div class="stat-label">Legal rights & laws guidance</div>
                 </div>
                 <div class="stat">
                     <div class="stat-num">2+</div>
@@ -741,18 +740,18 @@
                 </div>
                 <div class="phone-notch"></div>
                 <div class="sms-bubble sms-in">
-                    <div class="sms-label">Student · +255 7XX XXX XXX</div>
-                    HURU what is photosynthesis?
+                    <div class="sms-label">Citizen · +255 7XX XXX XXX</div>
+                    HURU ni zipi haki zangu nikikamatwa na polisi?
                     <div class="sms-time">20:14</div>
                 </div>
                 <div class="typing-dots"><span></span><span></span><span></span></div>
                 <div class="sms-bubble sms-out">
-                    Photosynthesis is the process plants use to convert sunlight, water, and CO₂ into glucose and oxygen. Formula: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂
+                    Kulingana na Katiba ya Tanzania (Ibara ya 13 & 15), haki zako unapokamatwa ni pamoja na: 1) Kujulishwa sababu za kukamatwa mara moja. 2) Haki ya kutojibu maswali bila uwepo wa wakili. 3) Kufikishwa mahakamani ndani ya masaa 24.
                     <div class="sms-time">20:14 ✓✓</div>
                 </div>
                 <div class="sms-bubble sms-in">
-                    <div class="sms-label">Student</div>
-                    HURU give me 3 quiz questions on it
+                    <div class="sms-label">Citizen</div>
+                    HURU eleza zaidi kuhusu Ibara ya 13
                     <div class="sms-time">20:15</div>
                 </div>
             </div>
@@ -765,29 +764,29 @@
     <div class="section-inner">
         <div class="reveal">
             <p class="section-tag">The Problem</p>
-            <h2 class="section-title">Millions of Students are<br>Left Behind</h2>
-            <p class="section-desc">In Tanzania and across sub-Saharan Africa, limited connectivity, high smartphone costs, and poor resource access create a widening educational inequality gap.</p>
+            <h2 class="section-title">Millions of Citizens Lack<br>Legal Awareness</h2>
+            <p class="section-desc">In Tanzania, high legal costs, complex jargon, and a lack of physical law materials create a widening justice gap and prevent citizens from knowing their rights.</p>
         </div>
         <div class="problem-grid reveal">
             <div class="problem-card">
-                <div class="problem-icon">📡</div>
-                <h3>No Internet Access</h3>
-                <p>Millions of rural learners live in areas with limited or zero internet connectivity, blocking access to online learning platforms.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">📱</div>
-                <h3>High Device Costs</h3>
-                <p>Smartphones remain out of reach for most low-income families, while basic feature phones are widespread and affordable.</p>
+                <div class="problem-icon">⚖️</div>
+                <h3>High Legal Costs</h3>
+                <p>Most citizens cannot afford standard consultation fees to speak with legal practitioners, leaving them vulnerable to violations of their rights.</p>
             </div>
             <div class="problem-card">
                 <div class="problem-icon">📚</div>
-                <h3>Lack of Resources</h3>
-                <p>Adequate textbooks, tutors, and learning materials are scarce especially in rural primary and secondary schools.</p>
+                <h3>Information Barriers</h3>
+                <p>Legal acts, statutes, and constitutional documents are hard to find, complex to read, and mostly inaccessible to ordinary citizens.</p>
             </div>
             <div class="problem-card">
-                <div class="problem-icon">⚖️</div>
-                <h3>Growing Inequality</h3>
-                <p>The digital divide is rapidly widening the educational outcomes between urban and rural, rich and poor students.</p>
+                <div class="problem-icon">📡</div>
+                <h3>Offline Population</h3>
+                <p>Many low-income and rural citizens live without reliable internet access, preventing them from using online legal repositories.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🛡️</div>
+                <h3>The Rights Gap</h3>
+                <p>Without easy access to legal knowledge, citizens struggle to defend themselves against contract fraud, labor exploitation, and illegal detention.</p>
             </div>
         </div>
     </div>
@@ -802,14 +801,14 @@
         </div>
         <div class="vm-grid reveal">
             <div class="vm-card vision">
-                <div class="vm-icon">🌍</div>
+                <div class="vm-icon">⚖️</div>
                 <h3>Our Vision</h3>
-                <p>A future where every student in Africa — regardless of geography, income, or device — has instant access to quality, curriculum-aligned education. We envision SMS as the great equalizer: a universal channel that puts knowledge in the hands of the many, not the few.</p>
+                <p>A future where every Tanzanian citizen — regardless of income, location, or device — has instant access to reliable, understandable legal education and rights guidance. We envision SMS as the key to legal empowerment for all.</p>
             </div>
             <div class="vm-card mission">
-                <div class="vm-icon">🚀</div>
+                <div class="vm-icon">✊</div>
                 <h3>Our Mission</h3>
-                <p>To bridge the digital education gap by delivering AI-powered, curriculum-aligned learning through basic SMS. We are committed to making inclusive education scalable, affordable, and available in both English and Swahili — aligned with SDG 4: Quality Education for All.</p>
+                <p>To bridge the justice gap by delivering AI-powered, contextually accurate legal education through basic SMS. We are committed to making civic and legal knowledge accessible in English and Swahili — aligned with SDG 16: Peace, Justice, and Strong Institutions.</p>
             </div>
         </div>
     </div>
@@ -821,28 +820,28 @@
         <div class="reveal">
             <p class="section-tag">The Solution</p>
             <h2 class="section-title">How HuruLearn Works</h2>
-            <p class="section-desc">An intelligent SMS pipeline that turns any basic phone into a personal AI tutor — no data, no app, no barriers.</p>
+            <p class="section-desc">An intelligent SMS pipeline that turns any basic phone into an instant legal assistant — no data, no app, no barriers.</p>
         </div>
         <div class="steps reveal">
             <div class="step">
                 <div class="step-num">1</div>
-                <h3>Student Sends SMS</h3>
-                <p>A learner texts "HURU [question]" from any basic phone to our shared short code on any GSM network.</p>
+                <h3>Citizen Sends SMS</h3>
+                <p>A citizen texts "HURU [question]" (e.g., about lease laws or labor rights) to 15054 on any GSM network.</p>
             </div>
             <div class="step">
                 <div class="step-num">2</div>
                 <h3>AI Processes Query</h3>
-                <p>Our backend strips the keyword, identifies the language, and passes the question to the AI engine with curriculum context.</p>
+                <p>Our backend extracts the query, detects the language, and fetches Tanzanian legal statutes and constitutional context.</p>
             </div>
             <div class="step">
                 <div class="step-num">3</div>
-                <h3>Response Generated</h3>
-                <p>Gemini AI generates an accurate, curriculum-aligned answer in Swahili or English within seconds.</p>
+                <h3>Guidance Generated</h3>
+                <p>Gemini AI matches the question against Tanzanian laws to generate a clear, understandable response in Swahili or English.</p>
             </div>
             <div class="step">
                 <div class="step-num">4</div>
                 <h3>Answer Delivered</h3>
-                <p>The student receives a clear, educational SMS reply — ready to read, save, and share with classmates.</p>
+                <p>The citizen receives a concise, educational SMS with an appropriate legal disclaimer — ready to read and save.</p>
             </div>
         </div>
     </div>
@@ -854,38 +853,38 @@
         <div class="reveal">
             <p class="section-tag">Platform Capabilities</p>
             <h2 class="section-title">Built for Reach. Designed for Impact.</h2>
-            <p class="section-desc">Every feature is engineered to maximize accessibility, accuracy, and educational value at the lowest possible cost.</p>
+            <p class="section-desc">Every feature is engineered to maximize accessibility, accuracy, and legal empowerment at the lowest possible cost.</p>
         </div>
         <div class="features-grid reveal">
             <div class="feature-card">
                 <div class="feature-icon">🤖</div>
                 <h3>Gemini AI Engine</h3>
-                <p>Powered by Google's Gemini model, delivering contextually accurate educational responses aligned to the national curriculum.</p>
+                <p>Powered by Google's Gemini model, delivering contextually accurate guidance based on active Tanzanian statutes.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🌐</div>
                 <h3>Bilingual Support</h3>
-                <p>Full support for English and Kiswahili, ensuring learners can ask and receive answers in their native language.</p>
+                <p>Full support for English and Kiswahili, ensuring citizens can search and understand legal definitions in their preferred language.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📲</div>
                 <h3>Zero-Internet Access</h3>
-                <p>Runs entirely on GSM SMS — no data plan, no Wi-Fi, no smartphone needed. Any phone qualifies.</p>
+                <p>Runs entirely on GSM SMS — no data plan, no Wi-Fi, no smartphone needed. Works on any basic phone.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>Admin Dashboard</h3>
-                <p>Real-time monitoring of usage, message logs, AI performance, and learner engagement through a web admin panel.</p>
+                <h3>Admin Upload Dashboard</h3>
+                <p>Admins can upload acts, bills, and law reports directly to the legal database, ensuring prompt training relevance.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">📝</div>
-                <h3>Quiz & Revision Mode</h3>
-                <p>Students can request practice questions, revision notes, and topic summaries via simple SMS commands.</p>
+                <div class="feature-icon">📂</div>
+                <h3>Learning Tracks</h3>
+                <p>Citizens can explore designated tracks such as Basic Rights, Consumer Law, Civic Duties, and Workplace Law.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
-                <h3>Secure & Private</h3>
-                <p>All data is handled securely. No personal data is shared. Sessions are logged only for service improvement.</p>
+                <h3>Safe & Disclaimed</h3>
+                <p>Enforces strict disclaimers to ensure educational clarification and protection of user anonymity.</p>
             </div>
         </div>
     </div>
@@ -902,19 +901,19 @@
         <div class="impact-grid reveal">
             <div>
                 <div class="impact-num">60M+</div>
-                <div class="impact-label">Out-of-school youth in sub-Saharan Africa</div>
+                <div class="impact-label">Tanzanian citizens under the Constitution</div>
             </div>
             <div>
-                <div class="impact-num">70%</div>
-                <div class="impact-label">Of Tanzanian students lack reliable internet access</div>
+                <div class="impact-num">80%+</div>
+                <div class="impact-label">Lack formal access to legal representation or advice</div>
             </div>
             <div>
                 <div class="impact-num">90%+</div>
-                <div class="impact-label">GSM phone penetration in rural Tanzania</div>
+                <div class="impact-label">GSM phone penetration in Tanzania</div>
             </div>
             <div>
-                <div class="impact-num">SDG 4</div>
-                <div class="impact-label">Quality Education — our guiding global goal</div>
+                <div class="impact-num">SDG 16</div>
+                <div class="impact-label">Peace, Justice &amp; Strong Institutions</div>
             </div>
         </div>
     </div>
@@ -926,7 +925,7 @@
         <div class="reveal">
             <p class="section-tag">Implementation Plan</p>
             <h2 class="section-title">Our Roadmap to Scale</h2>
-            <p class="section-desc">A phased approach ensuring quality, reliability, and meaningful impact at every step.</p>
+            <p class="section-desc">A phased approach ensuring legal accuracy, reliability, and citizen empowerment at every step.</p>
         </div>
         <div class="roadmap reveal" style="padding-left:1rem;">
             <div class="roadmap-track"></div>
@@ -934,8 +933,8 @@
                 <div class="roadmap-dot done">✓</div>
                 <div class="roadmap-content">
                     <div class="roadmap-phase">Phase 1 — Complete</div>
-                    <h3>Research & Curriculum Mapping</h3>
-                    <p>Identified target learner profiles, mapped national curriculum content, and conducted stakeholder research across rural communities in Tanzania.</p>
+                    <h3>Legal Database Research</h3>
+                    <p>Identified primary legal repositories (TanzLII, OSG e-Library, WorldLII), mapped active Tanzanian acts, and surveyed target citizen needs.</p>
                 </div>
             </div>
             <div class="roadmap-item">
@@ -943,7 +942,7 @@
                 <div class="roadmap-content">
                     <div class="roadmap-phase">Phase 2 — Complete</div>
                     <h3>AI Model Setup & SMS Integration</h3>
-                    <p>Integrated Gemini AI engine, connected Africa's Talking SMS gateway, and deployed backend infrastructure on production servers.</p>
+                    <p>Integrated Gemini AI engine, connected Africa's Talking SMS gateway, and deployed stable backend infrastructure on production servers.</p>
                 </div>
             </div>
             <div class="roadmap-item">
@@ -951,7 +950,7 @@
                 <div class="roadmap-content">
                     <div class="roadmap-phase">Phase 3 — Active</div>
                     <h3>MVP Development</h3>
-                    <p>Building and refining the core SMS Q&A system, admin dashboard, bilingual support, and logging modules. Currently receiving live SMS queries.</p>
+                    <p>Building and refining the core SMS legal Q&A system, admin upload dashboard, bilingual prompt templates, and logging modules. Currently handling live test SMS queries.</p>
                 </div>
             </div>
             <div class="roadmap-item">
@@ -959,7 +958,7 @@
                 <div class="roadmap-content">
                     <div class="roadmap-phase">Phase 4 — Upcoming</div>
                     <h3>Pilot Testing</h3>
-                    <p>Roll out to a selected group of schools and learners in rural Tanzania. Collect feedback, measure accuracy, and track engagement metrics.</p>
+                    <p>Roll out to a selected group of community centers, legal aid organizations, and citizens across rural Tanzania to track accuracy and contextualization.</p>
                 </div>
             </div>
             <div class="roadmap-item">
@@ -967,7 +966,7 @@
                 <div class="roadmap-content">
                     <div class="roadmap-phase">Phase 5 — Future</div>
                     <h3>Evaluation, Iteration & National Scaling</h3>
-                    <p>Analyze pilot results, iterate on the product, expand to additional subjects, languages, and partner with schools, NGOs, and government bodies for national rollout.</p>
+                    <p>Analyze pilot results, expand corpus database uploads, translate complex acts into basic Swahili, and partner with legal bodies, NGOs, and the government for national legal aid rollout.</p>
                 </div>
             </div>
         </div>
@@ -980,7 +979,7 @@
         <div class="reveal">
             <p class="section-tag">Community Voices</p>
             <h2 class="section-title">What Our Learners<br>Are Saying</h2>
-            <p class="section-desc">Join thousands of students and teachers discussing, learning, and sharing advice in our offline-first community hub.</p>
+            <p class="section-desc">Join thousands of citizens, legal advocates, and advisors discussing, learning, and sharing advice in our offline-first community hub.</p>
         </div>
         
         <div class="problem-grid reveal" style="margin-top:3rem;">
@@ -1014,7 +1013,7 @@
         <div class="reveal">
             <p class="section-tag">The People</p>
             <h2 class="section-title">The Team Behind HuruLearn</h2>
-            <p class="section-desc">A passionate, multidisciplinary team united by a single mission: quality education for every learner.</p>
+            <p class="section-desc">A passionate, multidisciplinary team united by a single mission: legal empowerment for every Tanzanian citizen.</p>
         </div>
         <div class="team-grid reveal">
             <div class="team-card">
@@ -1030,10 +1029,10 @@
                 <p>Architects and builds the SMS gateway, AI integration, and admin platform.</p>
             </div>
             <div class="team-card">
-                <div class="team-avatar">🎓</div>
-                <h4>Education Advisor</h4>
-                <span>Curriculum & Content</span>
-                <p>Ensures curriculum alignment and learning quality across all AI responses.</p>
+                <div class="team-avatar">⚖️</div>
+                <h4>Legal Advisor</h4>
+                <span>Statute & Compliance</span>
+                <p>Ensures legal database alignment, disclaimers, and accuracy across all AI responses.</p>
             </div>
             <div class="team-card">
                 <div class="team-avatar">📋</div>
@@ -1044,7 +1043,7 @@
         </div>
         <div class="reveal" style="margin-top:2rem; padding:2rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:16px;">
             <p style="color:var(--gray-400); font-size:.9rem; line-height:1.7; text-align:center;">
-                🤝 <strong style="color:#fff;">We are growing our team.</strong> We welcome passionate educators, community mobilizers, data scientists, and NGO professionals who share our mission. <a href="#sponsors" style="color:var(--amber-light); text-decoration:none;">Get in touch →</a>
+                🤝 <strong style="color:#fff;">We are growing our team.</strong> We welcome passionate legal practitioners, community mobilizers, data scientists, and NGO professionals who share our mission. <a href="#sponsors" style="color:var(--amber-light); text-decoration:none;">Get in touch →</a>
             </p>
         </div>
     </div>
@@ -1055,8 +1054,8 @@
     <div class="section-inner">
         <div class="reveal">
             <p class="section-tag">Partnership & Funding</p>
-            <h2 class="section-title">Invest in Africa's<br>Educational Future</h2>
-            <p class="section-desc">HuruLearn is actively seeking funders, sponsors, and institutional partners who believe in the power of technology and inclusive education. Your support directly funds access for the students who need it most.</p>
+            <h2 class="section-title">Invest in Tanzania's<br>Legal Empowerment</h2>
+            <p class="section-desc">HuruLearn is actively seeking funders, sponsors, and institutional partners who believe in the power of technology and legal empowerment. Your support directly funds access for the citizens who need it most.</p>
         </div>
 
         <!-- Current Sponsors Placeholder -->
@@ -1155,8 +1154,8 @@
     <div class="cta-inner">
         <div class="reveal">
             <p class="section-tag" style="display:block; text-align:center;">Stay Connected</p>
-            <h2>Ready to Change<br>Education in Africa?</h2>
-            <p>Whether you are a funder, educator, NGO, government body, or simply someone who believes in this mission — we want to hear from you. Join our mailing list or reach out directly.</p>
+            <h2>Ready to Change<br>Legal Awareness in Tanzania?</h2>
+            <p>Whether you are a funder, legal practitioner, NGO, government body, or simply someone who believes in this mission — we want to hear from you. Join our mailing list or reach out directly.</p>
             <form action="{{ route('contact.submit') }}" method="POST" class="cta-form">
                 @csrf
                 <input type="hidden" name="type" value="subscribe">

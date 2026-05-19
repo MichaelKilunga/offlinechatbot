@@ -16,7 +16,7 @@ class CommunityController extends Controller
     {
         $userId = session('chat_user_id');
         if (!$userId) {
-            return redirect()->route('chat.index')->with('error', 'Please login to access the community.');
+            return redirect()->route('chat.index', ['redirect' => request()->getRequestUri()])->with('error', 'Please login to access the community.');
         }
 
         $user = User::find($userId);
@@ -32,7 +32,7 @@ class CommunityController extends Controller
     {
         $userId = session('chat_user_id');
         if (!$userId) {
-            return redirect()->route('chat.index');
+            return redirect()->route('chat.index', ['redirect' => request()->getRequestUri()]);
         }
 
         $user = User::find($userId);
@@ -104,7 +104,7 @@ class CommunityController extends Controller
     public function join(CommunityThread $thread)
     {
         $userId = session('chat_user_id');
-        if (!$userId) return redirect()->route('chat.index');
+        if (!$userId) return redirect()->route('chat.index', ['redirect' => route('community.show', $thread)]);
 
         if ($thread->is_private) {
             return back()->with('error', 'Cannot join a private thread without an invite.');
@@ -118,7 +118,7 @@ class CommunityController extends Controller
     public function leave(CommunityThread $thread)
     {
         $userId = session('chat_user_id');
-        if (!$userId) return redirect()->route('chat.index');
+        if (!$userId) return redirect()->route('chat.index', ['redirect' => route('community.index')]);
 
         $thread->members()->detach($userId);
 

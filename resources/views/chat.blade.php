@@ -7,9 +7,9 @@
     {{-- ═══════════════════════════════════════════════════════
          PRIMARY SEO META
     ═══════════════════════════════════════════════════════ --}}
-    <title>Chat with HuruLearn AI – Instant Education for Africa</title>
-    <meta name="description" content="HuruLearn delivers curriculum-aligned AI tutoring through basic SMS and Web. No internet? Use SMS. Have data? Use our Web Chat. Serving students across Africa.">
-    <meta name="keywords" content="SMS education Africa, AI tutoring Tanzania, offline learning, curriculum-aligned SMS, HuruLearn, Huru Digital, educational technology Africa, Kiswahili education, no internet learning, SDG 4 education">
+    <title>Chat with HuruLearn AI – Instant Legal Assistant for Tanzania</title>
+    <meta name="description" content="HuruLearn delivers legal education, rights awareness, and constitutional guidance through basic SMS and Web. No internet? Use SMS. Have data? Use our Web Chat.">
+    <meta name="keywords" content="SMS legal education, legal rights Tanzania, constitution Tanzania, offline learning, HuruLearn, Huru Digital, civic education, Kiswahili legal help, TanzLII, OSG Tanzania">
     <meta name="author" content="Huru Digital Co. Ltd.">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -27,8 +27,8 @@
     ═══════════════════════════════════════════════════════ --}}
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HuruLearn">
-    <meta property="og:title" content="Chat with HuruLearn AI – Instant Education">
-    <meta property="og:description" content="Curriculum-aligned AI tutoring delivered via any device. No internet? Use SMS. Have data? Use our Web Chat.">
+    <meta property="og:title" content="Chat with HuruLearn AI – Instant Legal Guidance">
+    <meta property="og:description" content="Legal education, rights awareness, and constitutional knowledge delivered via any device. No internet? Use SMS. Have data? Use our Web Chat.">
     <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/chat">
     <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
     <meta property="og:image:width" content="1200">
@@ -43,8 +43,8 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@HuruLearnTZ">
     <meta name="twitter:creator" content="@HuruDigitalCoLtd">
-    <meta name="twitter:title" content="Chat with HuruLearn AI – Instant Education">
-    <meta name="twitter:description" content="Curriculum-aligned AI tutoring via basic SMS and Web. No internet? Use SMS. Have data? Use Web Chat.">
+    <meta name="twitter:title" content="Chat with HuruLearn AI – Instant Legal Guidance">
+    <meta name="twitter:description" content="Legal education, rights awareness, and constitutional knowledge via basic SMS and Web. No internet? Use SMS. Have data? Use Web Chat.">
     <meta name="twitter:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
     <meta name="twitter:image:alt" content="HuruLearn SMS Education Platform">
 
@@ -282,6 +282,27 @@
             color: #ef4444;
         }
 
+        .btn-community {
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.25);
+            color: #2dd4bf;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-community:hover {
+            background: rgba(20, 184, 166, 0.2);
+            border-color: #2dd4bf;
+            color: #5eead4;
+        }
+
         .chat-messages {
             flex: 1;
             padding: 2rem 1.5rem;
@@ -462,9 +483,14 @@
         <div class="auth-card">
             <div class="auth-header">
                 <div class="logo">HL</div>
-                <h1>HuruLearn AI</h1>
-                <p>Register with your phone number to start asking questions directly to our AI tutor.</p>
+                <h1>HuruLearn Law AI</h1>
+                <p>Register with your phone number to start asking questions directly to our AI legal assistant.</p>
             </div>
+            @if(session('error'))
+                <div class="auth-error-alert" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.75rem; border-radius: 12px; color: #fca5a5; margin-bottom: 1.5rem; font-size: .85rem; font-weight: 500; text-align: center;">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form id="login-form">
                 @csrf
                 <div class="input-group">
@@ -487,11 +513,14 @@
             <div class="header-info">
                 <div class="logo">HL</div>
                 <div>
-                    <h2>HuruLearn AI</h2>
-                    <span class="status">Online & Ready</span>
+                    <h2>HuruLearn Law AI</h2>
+                    <span class="status">Legal Advisor Online</span>
                 </div>
             </div>
-            <button id="logout-btn" class="btn-logout">Logout</button>
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <a href="{{ route('community.index') }}" class="btn-community">🌱 Community</a>
+                <button id="logout-btn" class="btn-logout">Logout</button>
+            </div>
         </div>
         <div class="filter-bar">
             <div class="filter-group">
@@ -543,6 +572,12 @@
                 const res = await fetch(`/chat/messages?${params}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
                 const data = await res.json();
                 if (data.status === 'success') {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectUrl = urlParams.get('redirect');
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                        return;
+                    }
                     showChat(data.messages, !!params);
                 }
             } catch (err) { console.error('Failed to load messages', err); }
@@ -582,6 +617,12 @@
                 });
                 const data = await res.json();
                 if (data.status === 'success') {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectUrl = urlParams.get('redirect');
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                        return;
+                    }
                     const msgRes = await fetch('/chat/messages', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
                     const msgData = await msgRes.json();
                     showChat(msgData.messages);
@@ -659,7 +700,7 @@
                     div.textContent = 'No past chats found matching your filters.';
                     chatMessages.appendChild(div);
                 } else {
-                    addMessageToUi({ content: 'Habari! I am your AI tutor. How can I help you learn today?', direction: 'outbound' });
+                    addMessageToUi({ content: 'Habari! Mimi ni msaidizi wako wa kisheria wa HuruLearn nchini Tanzania. Una swali gani leo kuhusu sheria au Katiba ya Tanzania?\n\nAngalizo: Maelezo yangu ni ya kielimu tu na si ushauri wa kisheria wa kitaalamu.', direction: 'outbound' });
                 }
             } else {
                 messages.forEach(addMessageToUi);
