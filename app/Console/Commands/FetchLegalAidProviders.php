@@ -38,9 +38,9 @@ class FetchLegalAidProviders extends Command
             $this->info("Fetching page " . ($page + 1) . "/{$totalPages}: {$url}");
 
             try {
-                $response = Http::withoutVerifying()->withHeaders([
+                $response = Http::retry(3, 2000)->timeout(45)->withoutVerifying()->withHeaders([
                     'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                ])->timeout(15)->get($url);
+                ])->get($url);
 
                 if (!$response->successful()) {
                     $this->error("Failed to fetch page " . ($page + 1) . ". Status: " . $response->status());
@@ -73,21 +73,42 @@ class FetchLegalAidProviders extends Command
                     preg_match('/views-field-field-region.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $regionMatch);
                     $region = isset($regionMatch[1]) ? trim(strip_tags($regionMatch[1])) : null;
 
-                    // Extract District (Wilaya)
-                    preg_match('/views-field-field-district.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $districtMatch);
-                    $district = isset($districtMatch[1]) ? trim(strip_tags($districtMatch[1])) : null;
+                    // Extract Address / Location (Anwani / Eneo)
+                    preg_match('/views-field-field-address.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $addressMatch);
+                    $location = isset($addressMatch[1]) ? trim(strip_tags($addressMatch[1])) : null;
 
-                    // Extract Location (Eneo)
-                    preg_match('/views-field-field-location.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $locationMatch);
-                    $location = isset($locationMatch[1]) ? trim(strip_tags($locationMatch[1])) : null;
+                    // Dynamically parse District (Wilaya) from the address string
+                    $district = null;
+                    if ($location) {
+                        // Match patterns like "wilaya ya ubungo" or "wilaya kinondoni" or "wilaya ya  ilala"
+                        if (preg_match('/wilaya\s+(?:ya\s+)?([a-z]+)/i', $location, $districtMatch)) {
+                            $district = strtoupper(trim($districtMatch[1]));
+                        }
+                    }
 
-                    // Extract Email
-                    preg_match('/views-field-field-email.*?href="mailto:(.*?)"/s', $chunk, $emailMatch);
-                    $email = isset($emailMatch[1]) ? trim(strip_tags($emailMatch[1])) : null;
+                    // Dynamically extract Email from address if any, with fallback
+                    $email = null;
+                    if ($location && preg_match('/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i', $location, $emailMatch)) {
+                        $email = trim($emailMatch[0]);
+                    }
+                    preg_match('/views-field-field-email.*?href="mailto:(.*?)"/s', $chunk, $emailMatchSep);
+                    if (isset($emailMatchSep[1])) {
+                        $email = trim(strip_tags($emailMatchSep[1]));
+                    }
 
-                    // Extract Phone
-                    preg_match('/views-field-field-phone.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $phoneMatch);
-                    $phone = isset($phoneMatch[1]) ? trim(strip_tags($phoneMatch[1])) : null;
+                    // Dynamically extract Phone from address if any, with fallback
+                    $phone = null;
+                    if ($location) {
+                        // Strip spaces to match phone patterns easily
+                        $cleanLocation = str_replace([' ', '-', '(', ')', '/'], '', $location);
+                        if (preg_match('/(?:\+255|0)[67]\d{8}/', $cleanLocation, $phoneMatch)) {
+                            $phone = trim($phoneMatch[0]);
+                        }
+                    }
+                    preg_match('/views-field-field-phone.*?<div class="field-content">(.*?)<\/div>/s', $chunk, $phoneMatchSep);
+                    if (isset($phoneMatchSep[1])) {
+                        $phone = trim(strip_tags($phoneMatchSep[1]));
+                    }
 
                     // Update or create in our database
                     LegalAidProvider::updateOrCreate(

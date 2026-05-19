@@ -195,20 +195,60 @@ class PromptEngine
      */
     private function findLocalProviders(string $question): \Illuminate\Database\Eloquent\Collection
     {
+        // Define common conversational, legal, and question words in Swahili & English
+        $stopwords = [
+            // Conversational & general Swahili
+            'huru', 'naomba', 'namba', 'simu', 'ngazi', 'kata', 'wilaya', 'mkoa', 'msaada', 'kisheria', 
+            'nipo', 'tafadhali', 'kama', 'jinsi', 'habari', 'huduma', 'watoa', 'karibu', 'kupata',
+            'ambao', 'ambayo', 'ambaye', 'yoyote', 'mwenye', 'kuwa', 'hiyo', 'hili', 'hili,',
+            'mwananchi', 'wananchi', 'msalac', 'mama', 'samia', 'legal', 'aid', 'campaign',
+            'kampeni', 'misaada', 'ofisi', 'ofisini', 'anwani', 'barua', 'pepe', 'email', 
+            'phone', 'address', 'location', 'district', 'region', 'ward', 'street', 'please', 
+            'find', 'get', 'near', 'nearby', 'help', 'support', 'organization', 'organisation',
+            'foundation', 'centre', 'center', 'society', 'association', 'unit', 'paralegal', 'paralegals',
+            'shukrani', 'asante', 'ndugu', 'mambo', 'vipi', 'salama', 'gani', 'upande', 'kupitia', 
+            'njia', 'zifuatazo', 'mawasiliano', 'mwanasheria', 'mkuu', 'serikali', 'ofisi ya', 'ofisi za',
+            // Swahili prepositions & structural words
+            'kwa', 'katika', 'pamoja', 'hadi', 'tangu', 'hapo', 'kila', 'kuna', 'zaidi', 'hapa', 'pale', 
+            'kule', 'mtaa', 'mitaa', 'barabara', 'jirani', 'opposite', 'jengo', 'house', 'plot', 'slp', 
+            'floor', 'stand', 'box', 'po', 'nyumba', 'kiwanja', 'viwanja', 'barabara ya', 'mtaa wa',
+            // Legal & topic domain words (to prevent matching e.g. "baraza la ardhi")
+            'ardhi', 'ndoa', 'talaka', 'ajira', 'kazi', 'mirathi', 'jinai', 'polisi', 'dhamana', 'kukamatwa', 
+            'haki', 'sheria', 'unyanyasaji', 'dhuluma', 'dhurumiwa', 'dhuruma', 'dhulumiwa', 'mgogoro', 
+            'familia', 'mke', 'mume', 'mtoto', 'watoto', 'urithi', 'mali', 'kufukuzwa', 'mshahara', 'mkataba',
+            'land', 'marriage', 'divorce', 'labor', 'work', 'employment', 'inheritance', 'criminal', 'police', 
+            'bail', 'arrest', 'rights', 'law', 'abuse', 'dispute', 'husband', 'wife', 'child', 'children', 
+            'property', 'dismissal', 'salary', 'contract'
+        ];
+
+        // Clean punctuation, split into lowercase words, and filter out short words and stopwords
         $words = array_filter(
             explode(' ', Str::lower(preg_replace('/[^a-z0-9 ]/i', '', $question))),
-            fn($word) => strlen($word) > 3
+            fn($word) => strlen($word) > 2 && !in_array($word, $stopwords)
         );
 
-        if (empty($words)) {
+        // Define region/large city names to filter out for specific ward search
+        $regions = [
+            'dar', 'es', 'salaam', 'arusha', 'mwanza', 'dodoma', 'mbeya', 'tanga', 
+            'morogoro', 'pwani', 'kigoma', 'shinyanga', 'singida', 'kilimanjaro', 
+            'tanzania', 'zanzibar', 'pemba', 'unguja'
+        ];
+
+        // Filter out generic region names to get specific ward/street keywords
+        $specificWords = array_filter($words, fn($w) => !in_array($w, $regions));
+
+        // Use specific words if available, otherwise fall back to region words
+        $searchWords = !empty($specificWords) ? $specificWords : $words;
+
+        if (empty($searchWords)) {
             return collect();
         }
 
         // Search the database for matching providers
         $query = LegalAidProvider::query();
         
-        $query->where(function($q) use ($words) {
-            foreach ($words as $word) {
+        $query->where(function($q) use ($searchWords) {
+            foreach ($searchWords as $word) {
                 $q->orWhere('region', 'LIKE', '%' . $word . '%')
                   ->orWhere('district', 'LIKE', '%' . $word . '%')
                   ->orWhere('location', 'LIKE', '%' . $word . '%')
