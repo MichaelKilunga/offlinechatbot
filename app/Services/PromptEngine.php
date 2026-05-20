@@ -185,8 +185,6 @@ class PromptEngine
                "- IF the citizen specifies their location (e.g. ward, district, region like Sinza Mori or Kahama Shinyanga) and requests legal aid: YOU MUST identify their location and prioritize any 'NEARBY REGISTERED LEGAL AID PROVIDERS' listed in the context at the beginning of your response, providing their name, exact address, and contact details.\n" .
                "- IF no specific nearby providers are available in the context, or if the citizen asks for general national offices, provide these official assistance contacts for further support:\n" .
                "  * Samia Legal Aid Campaign (Ministry of Constitutional and Legal Affairs - MoCLA): Dodoma Government City (Mtumba) or their regional help desks.\n" .
-               "  * TLS (Tanganyika Law Society): Regent Estate, Dar es Salaam, Phone: +255 784 329 071.\n" .
-               "  * LHRC (Legal and Human Rights Centre): Toll-Free Helpline: 0800 750 075.\n" .
                "- Do not include these contacts in ordinary educational responses unless requested or highly necessary.";
     }
 
