@@ -1417,5 +1417,79 @@
         updateFab();
     })();
 </script>
+
+<!-- PWA INSTALL PROMPT -->
+<div id="pwa-install-prompt" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10001; background: #1e1b4b; border: 1px solid rgba(245,158,11,0.5); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 400px; box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05); text-align: center;">
+    <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--amber), var(--blue)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-weight: 900; font-size: 1.2rem; color: #fff;">
+        <img src="/logo.svg" alt="App Logo" width="32" height="32" style="border-radius: 8px;">
+    </div>
+    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; margin-bottom: 0.5rem; color: #fff;">Install HuruLearn App</h3>
+    <p style="font-size: 0.9rem; color: var(--gray-400); margin-bottom: 1.5rem; line-height: 1.5;">Install our application on your device for quick and easy access to legal education anytime.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+        <button id="pwa-later-btn" style="padding: 0.7rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; color: #fff; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); transition: all 0.2s; flex: 1;">Later</button>
+        <button id="pwa-install-btn" style="padding: 0.7rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; color: #fff; border: none; background: linear-gradient(135deg, var(--amber), #e67e22); transition: all 0.2s; box-shadow: 0 4px 15px rgba(245,158,11,0.3); flex: 1;">Install</button>
+    </div>
+</div>
+
+<script>
+    let deferredPrompt;
+    const pwaPrompt = document.getElementById('pwa-install-prompt');
+    const pwaInstallBtn = document.getElementById('pwa-install-btn');
+    const pwaLaterBtn = document.getElementById('pwa-later-btn');
+
+    // Check if the user already clicked "Later" within the last 7 days
+    const pwaDismissedTime = localStorage.getItem('pwaDismissedTime');
+    const now = new Date().getTime();
+    let isDismissed = false;
+    
+    if (pwaDismissedTime) {
+        // If dismissed within the last 7 days (7 * 24 * 60 * 60 * 1000 = 604800000 ms)
+        if (now - parseInt(pwaDismissedTime, 10) < 604800000) {
+            isDismissed = true;
+        } else {
+            // Expired, clear it
+            localStorage.removeItem('pwaDismissedTime');
+        }
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+        if (!isDismissed) {
+            pwaPrompt.style.display = 'block';
+        }
+    });
+
+    pwaInstallBtn.addEventListener('click', async () => {
+        // Hide the app provided install promotion
+        pwaPrompt.style.display = 'none';
+        // Show the install prompt
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            // We've used the prompt, and can't use it again, throw it away
+            deferredPrompt = null;
+        }
+    });
+
+    pwaLaterBtn.addEventListener('click', () => {
+        pwaPrompt.style.display = 'none';
+        // Store the time of dismissal in localStorage
+        localStorage.setItem('pwaDismissedTime', new Date().getTime().toString());
+    });
+
+    window.addEventListener('appinstalled', () => {
+        // Hide the app-provided install promotion
+        pwaPrompt.style.display = 'none';
+        // Clear the deferredPrompt so it can be garbage collected
+        deferredPrompt = null;
+        console.log('PWA was installed');
+    });
+</script>
 </body>
 </html>
