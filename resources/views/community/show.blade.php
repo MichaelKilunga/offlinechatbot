@@ -1,89 +1,270 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $thread->title }} – HuruLearn Community</title>
+    <title>{{ $thread->title }} – Jamii ya HuruLearn</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --indigo: #1e1b4b;
-            --indigo-dark: #0f0d2e;
-            --blue: #3b82f6;
-            --blue-light: #60a5fa;
-            --amber: #f59e0b;
-            --white: #ffffff;
-            --gray-100: #f3f4f6;
-            --gray-400: #9ca3af;
-            --gray-800: #1f2937;
+            --gov-green: #15803d;
+            --gov-green-dark: #166534;
+            --gov-blue: #1d4ed8;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: #cbd5e1;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--indigo-dark); color: var(--white); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        
-        /* Nav */
-        nav {
-            padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
-            background: rgba(15,13,46,0.9); backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 100;
-        }
-        .nav-left { display: flex; align-items: center; gap: 1rem; }
-        .back-btn { color: var(--gray-400); text-decoration: none; display: flex; align-items: center; gap: .5rem; font-size: .9rem; transition: color .2s; }
-        .back-btn:hover { color: #fff; }
-        .thread-info h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 700; }
-        .thread-info p { font-size: .75rem; color: var(--gray-400); }
 
-        .chat-container { flex: 1; display: flex; overflow: hidden; position: relative; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Nav */
+        nav {
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            color: var(--gov-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .thread-info h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--gov-green-dark);
+        }
+
+        .thread-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .btn-leave-thread {
+            background: none;
+            border: 1px solid #fca5a5;
+            background: #fee2e2;
+            color: #991b1b;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-leave-thread:hover {
+            background: #fca5a5;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
         /* Sidebar */
         .sidebar {
-            width: 280px; background: rgba(15,13,46,0.5); border-right: 1px solid rgba(255,255,255,0.08);
-            padding: 1.5rem; display: flex; flex-direction: column; gap: 2rem;
+            width: 280px;
+            background: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
         }
-        .sidebar-section h4 { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray-400); margin-bottom: 1rem; }
-        .member-list { display: flex; flex-direction: column; gap: .8rem; }
-        .member-item { display: flex; align-items: center; gap: .8rem; font-size: .9rem; }
-        .avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--teal)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; }
-        
+
+        .sidebar-section h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gov-green-dark);
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+        }
+
+        .sidebar-section p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .member-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: var(--gov-green);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+        }
+
         /* Messages Area */
-        .main-chat { flex: 1; display: flex; flex-direction: column; background: rgba(255,255,255,0.01); }
-        .messages-list { flex: 1; overflow-y: auto; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; scroll-behavior: smooth; }
-        
-        .message { display: flex; gap: 1rem; max-width: 85%; }
-        .message.own { align-self: flex-end; flex-direction: row-reverse; }
-        
-        .msg-content { display: flex; flex-direction: column; gap: .3rem; }
-        .msg-bubble { 
-            padding: .8rem 1.2rem; border-radius: 18px; font-size: .95rem; line-height: 1.5;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+        .main-chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
         }
-        .message.own .msg-bubble { background: linear-gradient(135deg, var(--blue), #1d4ed8); border: none; }
-        
-        .msg-meta { font-size: .7rem; color: var(--gray-400); display: flex; gap: .8rem; }
-        .message.own .msg-meta { justify-content: flex-end; }
-        
+
+        .messages-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.85rem;
+            max-width: 82%;
+        }
+
+        .message.own {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
+
+        .msg-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .msg-bubble {
+            padding: 0.8rem 1.1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .message.own .msg-bubble {
+            background: var(--gov-green);
+            color: #ffffff;
+            border: none;
+        }
+
+        .msg-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .message.own .msg-meta {
+            justify-content: flex-end;
+            color: var(--text-muted);
+        }
+
         /* Input Area */
-        .input-area { padding: 1.5rem 2rem; background: rgba(15,13,46,0.8); border-top: 1px solid rgba(255,255,255,0.08); }
+        .input-area {
+            padding: 1rem 1.5rem;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+        }
+
         .input-wrapper {
-            max-width: 900px; margin: 0 auto; display: flex; gap: 1rem;
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: .6rem .8rem; border-radius: 16px; align-items: center;
-            transition: border-color .3s;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.75rem;
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 10px;
+            align-items: center;
         }
-        .input-wrapper:focus-within { border-color: var(--blue); }
+
+        .input-wrapper:focus-within {
+            border-color: var(--gov-green);
+        }
+
         .input-wrapper textarea {
-            flex: 1; background: transparent; border: none; color: #fff; outline: none;
-            padding: .5rem; font-size: .95rem; resize: none; max-height: 120px;
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            outline: none;
+            padding: 0.4rem;
+            font-size: 0.95rem;
+            resize: none;
+            max-height: 120px;
+            font-family: inherit;
         }
+
         .send-btn {
-            width: 42px; height: 42px; border-radius: 12px;
-            background: var(--blue); color: #fff; border: none;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            transition: all .2s;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--gov-green);
+            color: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        .send-btn:hover { background: var(--blue-light); transform: scale(1.05); }
-        .send-btn:active { transform: scale(0.95); }
+
+        .send-btn:hover {
+            background: var(--gov-green-dark);
+        }
 
         @media (max-width: 768px) {
             .sidebar { display: none; }
@@ -96,17 +277,18 @@
     <nav>
         <div class="nav-left">
             <a href="{{ route('community.index') }}" class="back-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Jamii
             </a>
             <div class="thread-info">
                 <h1>{{ $thread->title }}</h1>
-                <p>{{ $members->count() }} members · {{ $thread->is_private ? 'Private' : 'Public' }}</p>
+                <p>{{ $members->count() }} Wanachama · {{ $thread->is_private ? 'Binafsi' : 'Umma' }}</p>
             </div>
         </div>
         <div class="nav-right">
             <form action="{{ route('community.leave', $thread->slug) }}" method="POST">
                 @csrf
-                <button type="submit" style="background: none; border: none; color: #f87171; font-size: .8rem; font-weight: 600; cursor: pointer;">Leave Thread</button>
+                <button type="submit" class="btn-leave-thread">Ondoka Kwenye Majadiliano</button>
             </form>
         </div>
     </nav>
@@ -114,11 +296,11 @@
     <div class="chat-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <h4>Description</h4>
-                <p style="font-size: .85rem; color: var(--gray-400); line-height: 1.5;">{{ $thread->description ?? 'No description provided.' }}</p>
+                <h4>Maelezo</h4>
+                <p>{{ $thread->description ?? 'Hakuna maelezo yaliyowekwa.' }}</p>
             </div>
             <div class="sidebar-section">
-                <h4>Members</h4>
+                <h4>Wanachama</h4>
                 <div class="member-list">
                     @foreach($members as $member)
                     <div class="member-item">
@@ -136,8 +318,8 @@
                 <div class="message {{ $post->user_id == $user->id ? 'own' : '' }}">
                     <div class="msg-content">
                         @if($post->user_id != $user->id)
-                        <div class="msg-meta" style="margin-bottom: .2rem;">
-                            <span style="font-weight: 600; color: var(--blue-light);">{{ $post->user->name ?? $post->user->phone_number }}</span>
+                        <div class="msg-meta" style="margin-bottom: 0.2rem;">
+                            <span style="font-weight: 700; color: var(--gov-blue);">{{ $post->user->name ?? $post->user->phone_number }}</span>
                         </div>
                         @endif
                         <div class="msg-bubble">{{ $post->content }}</div>
@@ -150,8 +332,8 @@
             <div class="input-area">
                 <form id="chatForm" class="input-wrapper">
                     @csrf
-                    <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
-                    <button type="submit" class="send-btn">
+                    <textarea id="messageInput" placeholder="Andika ujumbe wako hapa..." rows="1"></textarea>
+                    <button type="submit" class="send-btn" title="Tuma Ujumbe">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
                     </button>
                 </form>
@@ -189,7 +371,7 @@
                 <div class="message own" id="temp-${tempId}">
                     <div class="msg-content">
                         <div class="msg-bubble">${content}</div>
-                        <div class="msg-meta">${time} · Sending...</div>
+                        <div class="msg-meta">${time} · Inatuma...</div>
                     </div>
                 </div>
             `;
@@ -209,21 +391,17 @@
                 if(response.ok) {
                     const data = await response.json();
                     const tempMsg = document.getElementById(`temp-${tempId}`);
-                    tempMsg.querySelector('.msg-meta').innerText = time;
+                    if(tempMsg) {
+                        tempMsg.querySelector('.msg-meta').innerText = time;
+                    }
                 } else {
-                    alert('Failed to send message.');
+                    alert('Imefeli kutuma ujumbe.');
                 }
             } catch (error) {
                 console.error(error);
-                alert('An error occurred.');
+                alert('Hitilafu imetokea.');
             }
         });
-
-        // Polling for new messages (simulated real-time)
-        setInterval(async () => {
-            // In a real app, we'd fetch messages newer than the last ID
-            // For now, we'll just keep it simple
-        }, 5000);
     </script>
 </body>
 </html>

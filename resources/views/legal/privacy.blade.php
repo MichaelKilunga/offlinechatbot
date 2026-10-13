@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy &mdash; HuruLearn</title>
-    <meta name="description" content="Read HuruLearn's Privacy Policy to understand how we collect, use, and protect your data when using our AI-powered SMS education service in Tanzania.">
+    <meta name="description" content="Read HuruLearn's Privacy Policy to understand how we collect, use, and protect your data when using our SMS education service in Tanzania.">
     <meta name="robots" content="noindex, follow">
     <link rel="canonical" href="https://hurulearn.hurudigital.co.tz/privacy-policy">
 
@@ -12,7 +12,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="HuruLearn">
     <meta property="og:title" content="Privacy Policy &mdash; HuruLearn">
-    <meta property="og:description" content="Read HuruLearn's Privacy Policy for our AI-powered SMS education platform.">
+    <meta property="og:description" content="Read HuruLearn's Privacy Policy for our SMS education platform.">
     <meta property="og:url" content="https://hurulearn.hurudigital.co.tz/privacy-policy">
     <meta property="og:image" content="https://hurulearn.hurudigital.co.tz/og-image.svg">
 
@@ -72,7 +72,7 @@
             <p>We collect minimal information required to provide our service:</p>
             <ul>
                 <li><strong>Phone Number:</strong> We store your phone number to track your learning progress, manage sessions, and enforce moderation.</li>
-                <li><strong>SMS Content:</strong> We store the content of your questions and our AI answers to improve our educational models and quality.</li>
+                <li><strong>SMS Content:</strong> We store the content of your questions and our system answers to improve our educational quality.</li>
             </ul>
         </section>
 
@@ -80,8 +80,8 @@
             <h2>2. Data Usage</h2>
             <p>Your data is used solely for educational purposes and platform monitoring. We do not sell your personal data or phone number to third-party advertisers. We use your data to:</p>
             <ul>
-                <li>Respond to your educational queries via AI.</li>
-                <li>Analyse popular topics to improve our curriculum mapping.</li>
+                <li>Respond to your educational queries via SMS and Web.</li>
+                <li>Analyse popular topics to improve our service delivery.</li>
                 <li>Identify and prevent abusive usage.</li>
             </ul>
         </section>
@@ -91,9 +91,9 @@
             <p>HuruLearn utilizes industry-standard third-party providers:</p>
             <ul>
                 <li><strong>Africa's Talking:</strong> For SMS gateway routing and delivery.</li>
-                <li><strong>Google Gemini:</strong> To process and generate educational AI responses.</li>
+                <li><strong>Cloud Infrastructure:</strong> To process and generate responses.</li>
             </ul>
-            <p>These providers only receive the data necessary for their specific function (e.g., the text of your question is passed to the AI without your personal identity).</p>
+            <p>These providers only receive the data necessary for their specific function (e.g., the text of your question is passed without your personal identity).</p>
         </section>
 
         <section>
