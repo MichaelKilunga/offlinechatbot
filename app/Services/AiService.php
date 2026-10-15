@@ -28,6 +28,9 @@ class AiService
             $temp = $temp ?? (float) (\App\Models\SystemSetting::where('key', 'ai_temperature')->value('value') ?? 0.7);
             $maxTokens = $maxTokens ?? (int) (\App\Models\SystemSetting::where('key', 'ai_max_tokens')->value('value') ?? 8000);
 
+            $model = (string) \App\Models\SystemSetting::get('ai_model', 'gemini-flash-lite-latest');
+            $timeout = (int) \App\Models\SystemSetting::get('ai_timeout', 30);
+
             $apiKey = config('services.gemini.key');
 
             if (empty($apiKey)) {
@@ -35,9 +38,9 @@ class AiService
                 return ['text' => 'System error: AI unavailable.', 'tokens' => null];
             }
 
-            $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=' . $apiKey;
+            $url = 'https://generativelanguage.googleapis.com/v1beta/models/' . $model . ':generateContent?key=' . $apiKey;
 
-            $response = Http::withoutVerifying()->withHeaders([
+            $response = Http::withoutVerifying()->timeout($timeout)->withHeaders([
                 'Content-Type' => 'application/json',
                 'X-Goog-Api-Key' => $apiKey,
             ])->retry(3, 1000)->post($url, [
@@ -61,14 +64,14 @@ class AiService
                 return [
                     'text' => 'BANNED_CONTENT_DETECTED',
                     'tokens' => $data['usageMetadata'] ?? null,
-                    'model' => 'gemini-flash-lite-latest'
+                    'model' => $model
                 ];
             }
 
             return [
                 'text' => trim($text ?? 'Samahani, sikuelewa.'),
                 'tokens' => $data['usageMetadata'] ?? null,
-                'model' => 'gemini-flash-lite-latest'
+                'model' => $model
             ];
 
         } catch (\Throwable $e) {

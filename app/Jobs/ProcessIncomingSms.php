@@ -64,11 +64,12 @@ class ProcessIncomingSms implements ShouldQueue
         }
 
         // Moderation Check
+        $banThreshold = \App\Services\ModerationService::banThreshold();
         if ($moderationService->isAbusive($this->text)) {
             $user->increment('abuse_count');
             Log::warning("User " . $user->phone_number . " sent abusive content. Abuse count: " . $user->abuse_count);
 
-            if ($user->abuse_count >= 3) {
+            if ($user->abuse_count >= $banThreshold) {
                 $user->update(['is_banned' => true]);
                 $warningMsg = $moderationService->getBanMessage($language);
                 Log::error("User " . $user->phone_number . " has been BANNED due to repeated abuse.");
@@ -114,7 +115,7 @@ class ProcessIncomingSms implements ShouldQueue
             $user->increment('abuse_count');
             Log::warning("AI flagged User " . $user->phone_number . " for unsafe content. Abuse count: " . $user->abuse_count);
 
-            if ($user->abuse_count >= 3) {
+            if ($user->abuse_count >= $banThreshold) {
                 $user->update(['is_banned' => true]);
                 $warningMsg = $moderationService->getBanMessage($language);
             } else {

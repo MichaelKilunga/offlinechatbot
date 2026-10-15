@@ -27,7 +27,7 @@ class SmsController extends Controller
         // We match it case-insensitively and trim any surrounding whitespace that
         // remains, so the AI receives a clean, keyword-free question.
         // ---------------------------------------------------------------------------
-        $keyword = 'HURU';
+        $keyword = (string) \App\Models\SystemSetting::get('sms_keyword', 'HURU');
 
         if (!preg_match('/^' . preg_quote($keyword, '/') . '\b/i', $text)) {
             // Message was not addressed to our keyword — ignore it silently.

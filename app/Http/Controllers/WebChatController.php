@@ -107,13 +107,14 @@ class WebChatController extends Controller
         }
 
         // Moderation Check
+        $banThreshold = \App\Services\ModerationService::banThreshold();
         if ($moderationService->isAbusive($text)) {
             $user->increment('abuse_count');
-            $warningMsg = $user->abuse_count >= 3 
+            $warningMsg = $user->abuse_count >= $banThreshold 
                 ? $moderationService->getBanMessage($language)
                 : $moderationService->getWarningMessage($language, $user->abuse_count);
             
-            if ($user->abuse_count >= 3) {
+            if ($user->abuse_count >= $banThreshold) {
                 $user->update(['is_banned' => true]);
             }
 
@@ -153,11 +154,11 @@ class WebChatController extends Controller
         // AI-triggered moderation
         if ($aiResponseText === 'BANNED_CONTENT_DETECTED') {
             $user->increment('abuse_count');
-            $warningMsg = $user->abuse_count >= 3 
+            $warningMsg = $user->abuse_count >= $banThreshold 
                 ? $moderationService->getBanMessage($language)
                 : $moderationService->getWarningMessage($language, $user->abuse_count);
             
-            if ($user->abuse_count >= 3) {
+            if ($user->abuse_count >= $banThreshold) {
                 $user->update(['is_banned' => true]);
             }
 

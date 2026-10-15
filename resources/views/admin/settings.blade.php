@@ -1,133 +1,172 @@
-@extends("layouts.admin", ["title" => "System Settings"])
+@extends("layouts.admin", ["title" => "Settings"])
 
 @section("content")
-    <div style="max-width:680px;">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">⚙️ Global Application Settings</div>
-                <div class="card-subtitle">Controls AI behaviour and platform configuration</div>
+    <form action="{{ route('admin.settings.update') }}" method="POST">
+        @csrf
+        <div class="grid-side" style="grid-template-columns: 1fr 320px;">
+            <div class="stack">
+
+                <!-- Engine -->
+                <div class="card" id="engine">
+                    <div class="card-header"><div><div class="card-title">🔌 Engine</div><div class="card-subtitle">How replies are generated</div></div></div>
+                    <div class="card-body">
+                        <div class="grid-2" style="gap:1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Engine status</label>
+                                <select name="ai_enabled" class="form-select">
+                                    <option value="1" {{ $settings['ai_enabled'] == '1' ? 'selected' : '' }}>🟢 Active: answering messages</option>
+                                    <option value="0" {{ $settings['ai_enabled'] == '0' ? 'selected' : '' }}>🔴 Paused: send maintenance message</option>
+                                </select>
+                                <div class="form-hint">Paused stops all model calls (SMS and web). Moderation still runs.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Model name</label>
+                                <input type="text" name="ai_model" class="form-input mono" value="{{ $settings['ai_model'] }}">
+                                <div class="form-hint">Gemini model id, e.g. <span class="mono">gemini-flash-lite-latest</span>, <span class="mono">gemini-2.5-flash</span>. Test in the playground after changing.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Maintenance auto-reply</label>
+                            <textarea name="ai_maintenance_message" class="form-textarea" rows="2">{{ $settings['ai_maintenance_message'] }}</textarea>
+                            <div class="form-hint">Sent instead of an answer while paused. Keep under 160 characters for a single SMS: currently {{ mb_strlen($settings['ai_maintenance_message']) }}.</div>
+                        </div>
+                        <div class="grid-3" style="gap:1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Max response words</label>
+                                <input type="number" name="ai_max_words" class="form-input" value="{{ $settings['ai_max_words'] }}" min="10" max="1000">
+                                <div class="form-hint">Instruction inside the prompt. One SMS ≈ 25 words.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Max output tokens</label>
+                                <input type="number" name="ai_max_tokens" class="form-input" value="{{ $settings['ai_max_tokens'] }}" min="100" max="20000">
+                                <div class="form-hint">Hard API cap. 2000–4000 is enough for SMS answers.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Temperature</label>
+                                <input type="number" step="0.1" name="ai_temperature" class="form-input" value="{{ $settings['ai_temperature'] }}" min="0" max="2">
+                                <div class="form-hint">0 = strict and repeatable, 1+ = creative.</div>
+                            </div>
+                        </div>
+                        <div class="grid-2" style="gap:1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Request timeout (seconds)</label>
+                                <input type="number" name="ai_timeout" class="form-input" value="{{ $settings['ai_timeout'] }}" min="5" max="120">
+                                <div class="form-hint">Citizens get the fallback apology if the model takes longer.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channels -->
+                <div class="card" id="channels">
+                    <div class="card-header"><div><div class="card-title">📡 Channels</div><div class="card-subtitle">SMS and web chat behaviour</div></div></div>
+                    <div class="card-body">
+                        <div class="grid-3" style="gap:1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Primary language</label>
+                                <select name="primary_language" class="form-select">
+                                    <option value="auto" {{ $settings['primary_language'] == 'auto' ? 'selected' : '' }}>🌍 Auto detect per message</option>
+                                    <option value="sw" {{ $settings['primary_language'] == 'sw' ? 'selected' : '' }}>🇹🇿 Swahili</option>
+                                    <option value="en" {{ $settings['primary_language'] == 'en' ? 'selected' : '' }}>🇬🇧 English</option>
+                                </select>
+                                <div class="form-hint">Picks the template, legal entries and constraint wording.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">SMS keyword</label>
+                                <input type="text" name="sms_keyword" class="form-input mono" value="{{ $settings['sms_keyword'] }}" maxlength="20" style="text-transform:uppercase;">
+                                <div class="form-hint">Messages to the shortcode must start with this word. Must match the keyword registered at Africa's Talking.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Web chat history shown</label>
+                                <input type="number" name="web_chat_limit" class="form-input" value="{{ $settings['web_chat_limit'] }}" min="1" max="50">
+                                <div class="form-hint">Previous messages loaded when a citizen opens web chat.</div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Service name (admin branding)</label>
+                            <input type="text" name="bot_name" class="form-input" value="{{ $settings['bot_name'] }}" style="max-width:320px;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Moderation -->
+                <div class="card" id="moderation">
+                    <div class="card-header"><div><div class="card-title">🛡️ Moderation</div><div class="card-subtitle">Abusive-language strikes and bans</div></div></div>
+                    <div class="card-body">
+                        <div class="grid-2" style="gap:1rem;">
+                            <div class="form-group">
+                                <label class="form-label">Keyword moderation</label>
+                                <select name="moderation_enabled" class="form-select">
+                                    <option value="1" {{ $settings['moderation_enabled'] == '1' ? 'selected' : '' }}>🟢 On: warn and ban on abusive words</option>
+                                    <option value="0" {{ $settings['moderation_enabled'] == '0' ? 'selected' : '' }}>🔴 Off: never check words</option>
+                                </select>
+                                <div class="form-hint">Safety blocks from the model itself still count as strikes.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Strikes before ban</label>
+                                <input type="number" name="moderation_ban_threshold" class="form-input" value="{{ $settings['moderation_ban_threshold'] }}" min="1" max="20">
+                                <div class="form-hint">A user is banned when their strike count reaches this number. Applies to new strikes only.</div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label">Extra forbidden words</label>
+                            <textarea name="moderation_extra_words" class="form-textarea" rows="3" placeholder="word1, word2, neno3">{{ $settings['moderation_extra_words'] }}</textarea>
+                            <div class="form-hint">Comma or newline separated, matched as whole words, case-insensitive. Added on top of the built-in Swahili and English list ({{ count((new \App\Services\ModerationService)->words()) }} words active now).</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cost -->
+                <div class="card" id="cost">
+                    <div class="card-header"><div><div class="card-title">💵 Cost tracking (optional)</div><div class="card-subtitle">Used only to estimate spend on the Usage page</div></div></div>
+                    <div class="card-body">
+                        <div class="grid-2" style="gap:1rem;">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Input price, USD per 1M tokens</label>
+                                <input type="number" step="0.0001" name="ai_price_input_per_m" class="form-input" value="{{ $settings['ai_price_input_per_m'] }}" min="0">
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label">Output price, USD per 1M tokens</label>
+                                <input type="number" step="0.0001" name="ai_price_output_per_m" class="form-input" value="{{ $settings['ai_price_output_per_m'] }}" min="0">
+                            </div>
+                        </div>
+                        <div class="form-hint">Leave at 0 to hide the estimate. Check your provider's current price list.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; gap:.6rem;">
+                    <button type="submit" class="btn btn-primary">💾 Save all settings</button>
+                </div>
             </div>
-            <div class="card-body">
-                <form action="{{ route('admin.settings.update') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label class="form-label">Primary SMS Language</label>
-                        <select name="primary_language" class="form-select">
-                            <option value="auto" {{ ($settings['primary_language'] ?? 'sw') == 'auto' ? 'selected' : '' }}>
-                                🌍 Auto Detect (Dynamic)
-                            </option>
-                            <option value="sw" {{ ($settings['primary_language'] ?? 'sw') == 'sw' ? 'selected' : '' }}>
-                                🇹🇿 Swahili (Kiswahili)
-                            </option>
-                            <option value="en" {{ ($settings['primary_language'] ?? 'sw') == 'en' ? 'selected' : '' }}>
-                                🇬🇧 English
-                            </option>
-                        </select>
-                        <div class="form-hint">Auto Detect will dynamically determine the language from user's SMS. Selecting a specific language enforces it.</div>
+
+            <!-- Side: environment -->
+            <div class="stack">
+                <div class="card" style="position:sticky; top:80px;">
+                    <div class="card-header"><div class="card-title">🔑 Environment (.env)</div></div>
+                    <div class="card-body" style="padding:.6rem 1.2rem;">
+                        <div class="check"><span class="check-dot {{ $env['gemini_key'] ? 'ok' : 'bad' }}"></span><div>Model API key<div class="muted" style="font-size:.7rem;">GEMINI_API_KEY</div></div></div>
+                        <div class="check"><span class="check-dot {{ $env['at_key'] ? 'ok' : 'bad' }}"></span><div>Africa's Talking key<div class="muted" style="font-size:.7rem;">AT_USERNAME = {{ $env['at_username'] ?: 'missing' }}</div></div></div>
+                        <div class="check"><span class="check-dot {{ $env['at_from'] ? 'ok' : 'bad' }}"></span><div>Shortcode / sender<div class="muted" style="font-size:.7rem;">AT_FROM = {{ $env['at_from'] ?: 'missing' }}</div></div></div>
+                        <div class="check"><span class="check-dot ok"></span><div>Queue: {{ $env['queue'] }} · Cache: {{ $env['cache'] }}</div></div>
+                        <div class="check"><span class="check-dot {{ $env['app_debug'] ? 'bad' : 'ok' }}"></span><div>APP_ENV = {{ $env['app_env'] }}, debug {{ $env['app_debug'] ? 'ON' : 'off' }}</div></div>
+                        <div class="check"><span class="check-dot {{ $env['mail_from'] ? 'ok' : 'bad' }}"></span><div>Contact form mail to<div class="muted" style="font-size:.7rem;">{{ $env['mail_from'] ?: 'missing' }}</div></div></div>
                     </div>
+                    <div class="card-footer form-hint">Secrets live in <span class="mono">.env</span> on the server and are not editable here. Restart the queue worker after changing them.</div>
+                </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Bot Name (Branding)</label>
-                        <input type="text" name="bot_name" class="form-input"
-                               value="{{ $settings['bot_name'] ?? env('APP_NAME') }}"
-                               placeholder="HuruLearn">
-                        <div class="form-hint">Used in admin branding only. Does not affect SMS responses.</div>
+                <div class="card">
+                    <div class="card-header"><div class="card-title">Defaults</div></div>
+                    <div class="card-body" style="padding:.8rem 1.2rem;">
+                        <dl class="kv" style="grid-template-columns: 1fr auto; font-size:.74rem;">
+                            @foreach($defaults as $key => $default)
+                                @if(!in_array($key, ['ai_maintenance_message', 'moderation_extra_words']))
+                                    <dt class="mono">{{ $key }}</dt><dd class="mono muted">{{ $default }}</dd>
+                                @endif
+                            @endforeach
+                        </dl>
                     </div>
-
-                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
-
-                    <div class="form-group">
-                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.2rem;">🔌</span> AI Engine Status
-                        </label>
-                        <select name="ai_enabled" class="form-select">
-                            <option value="1" {{ ($settings['ai_enabled'] ?? '1') == '1' ? 'selected' : '' }}>🟢 Active (Processing SMS)</option>
-                            <option value="0" {{ ($settings['ai_enabled'] ?? '1') == '0' ? 'selected' : '' }}>🔴 Paused (Maintenance Mode)</option>
-                        </select>
-                        <div class="form-hint">Turn off to temporarily stop the AI from replying to incoming SMS. Useful during maintenance or budget limits.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Maintenance Auto-Reply Message</label>
-                        <textarea name="ai_maintenance_message" class="form-textarea" rows="2">{{ $settings['ai_maintenance_message'] ?? 'Samahani, mfumo wetu unafanyiwa matengenezo. Tafadhali jaribu tena baadaye. (System is under maintenance, please try later.)' }}</textarea>
-                    </div>
-
-                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
-
-                    <div class="form-group">
-                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.2rem;">📝</span> Max Response Words (Prompt Instruction)
-                        </label>
-                        <input type="number" name="ai_max_words" class="form-input"
-                               value="{{ $settings['ai_max_words'] ?? 320 }}"
-                               min="10" max="1000">
-                        <div class="form-hint">Instructs the AI to keep answers within this word count (e.g. 160 words). Influences prompt constraints.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.2rem;">💬</span> Web Chat Message History Limit
-                        </label>
-                        <input type="number" name="web_chat_limit" class="form-input"
-                                value="{{ $settings['web_chat_limit'] ?? 4 }}"
-                                min="1" max="50">
-                        <div class="form-hint">Controls how many previous messages are loaded in the web chatbot interface for context and display.</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.2rem;">⚙️</span> Max Response Tokens (API Cap)
-                        </label>
-                        <input type="number" name="ai_max_tokens" class="form-input"
-                               value="{{ $settings['ai_max_tokens'] ?? 8000 }}"
-                               min="500" max="10000">
-                        <div class="form-hint">Hard limit on the number of tokens the AI API will generate (Gemini Flash Lite is highly efficient, 2000-4000 is recommended).</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" style="display:flex; align-items:center; gap:0.5rem;">
-                            <span style="font-size:1.2rem;">🌡️</span> AI Temperature
-                        </label>
-                        <input type="number" step="0.1" name="ai_temperature" class="form-input"
-                               value="{{ $settings['ai_temperature'] ?? 0.7 }}"
-                               min="0.0" max="2.0">
-                        <div class="form-hint">Controls randomness: 0.0 is strict/focused, 1.0+ is more creative. Default is 0.7.</div>
-                    </div>
-
-                    <div style="height:1px; background:rgba(255,255,255,0.07); margin:1.5rem 0;"></div>
-
-                    <div style="display:flex; justify-content:flex-end;">
-                        <button type="submit" class="btn btn-primary">💾 Save Configuration</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-
-        <!-- Info Card -->
-        <div class="card" style="margin-top:1.5rem; border-color:rgba(59,130,246,0.2);">
-            <div class="card-header" style="border-color:rgba(59,130,246,0.15);">
-                <div class="card-title" style="color:var(--blue-light);">ℹ️ How Settings Work</div>
-            </div>
-            <div class="card-body">
-                <ul style="list-style:none; display:flex; flex-direction:column; gap:.8rem;">
-                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
-                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        Primary language affects keyword matching priority across the AI engine.
-                    </li>
-                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
-                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        AI Configuration alters both API limits (Tokens/Temperature) and strict prompt rules (Max Words) instantly.
-                    </li>
-                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
-                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        Legal and civic content for other languages is still searchable when keywords match.
-                    </li>
-                    <li style="display:flex; gap:.75rem; align-items:flex-start; font-size:.875rem; color:var(--gray-400);">
-                        <span style="color:var(--amber); font-weight:700; flex-shrink:0;">✦</span>
-                        If AI is paused, incoming SMS will receive the maintenance message without contacting the AI API point.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    </form>
 @endsection
