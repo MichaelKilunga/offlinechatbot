@@ -167,7 +167,6 @@ class PromptEngine
                    "- Jibu kwa ufupi na ukamilifu (Max maneno {$maxWords}).\n" .
                    "- USIWEKE salamu wala maongezi yasiyo na maana. Hakikisha unatoa muktadha wa sheria za Tanzania pekee.\n" .
                    "- LAZIMA uandike jibu lako kwa maandishi ya kawaida (plain text) pekee. USITUMIE alama za asterisks au nyota (*) hata kidogo (kama vile **bold** au *italics* au * orodha za bullet). Hakikisha hakuna herufi yoyote ya nyota (*) katika jibu lako lote.\n" .
-                   "- LAZIMA uhitimishe jibu lako kwa kuweka saini fupi sana mwishoni kabisa: \"Kampeni ya Msaada wa Kisheria ya Mama Samia(Samia Legal Aid Campaign).\"\n" .
                    "- IKIWA mwananchi ametaja mahali alipo (kama vile mkoa, wilaya, kata au mtaa, mfano Sinza Mori au Kahama Shinyanga) na anahitaji msaada wa kisheria: LAZIMA utambue eneo lake na kutoa kipaumbele cha kwanza kabisa kwa 'WATOA HUDUMA WA KARIBU' waliotajwa kwenye muktadha (context) kuwa wako karibu naye. Taja majina yao, anwani zao, na simu/barua pepe zao waziwazi mwanzoni mwa jibu lako.\n" .
                    "- IKIWA hakuna watoa huduma wa karibu waliotajwa kwenye muktadha au mwananchi anauliza anwani za kitaifa kwa ujumla, utataja anwani hizi za kitaifa za msaada wa ziada:\n" .
                    "  * Ofisi za Msaada wa Kisheria za Mama Samia (Wizara ya Katiba na Sheria - MoCLA): S.L.P. 315, Dodoma (Mji wa Serikali Mtumba). Barua Pepe: km@katiba.go.tz. (au madawati yao ya msaada wa kisheria ya mikoa na wilaya).\n" .
@@ -180,7 +179,6 @@ class PromptEngine
                "- Respond briefly and completely (Max {$maxWords} words).\n" .
                "- DO NOT include greetings or extra conversation. Ensure you provide Tanzanian legal context only.\n" .
                "- YOU MUST write your response in 100% clean plain text. DO NOT use any asterisks (*) or markdown formatting (like **bold**, *italics*, or * lists) under any circumstances. Ensure there are absolutely no asterisk characters (*) in your entire response.\n" .
-               "- YOU MUST conclude your response with a very brief sign-off at the end: \"Samia Legal Aid Campaign.\"\n" .
                "- IF the citizen specifies their location (e.g. ward, district, region like Sinza Mori or Kahama Shinyanga) and requests legal aid: YOU MUST identify their location and prioritize any 'NEARBY REGISTERED LEGAL AID PROVIDERS' listed in the context at the beginning of your response, providing their name, exact address, and contact details.\n" .
                "- IF no specific nearby providers are available in the context, or if the citizen asks for general national offices, provide these official assistance contacts for further support:\n" .
                "  * Samia Legal Aid Campaign Office (Ministry of Constitutional and Legal Affairs - MoCLA): P.O. Box 315, Dodoma Government City (Mtumba). Email: km@katiba.go.tz. (or their regional/district legal help desks).\n" .
